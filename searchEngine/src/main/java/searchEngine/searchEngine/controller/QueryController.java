@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class QueryController {
 
     @GetMapping("/list")
-    public void getResponse() {}
+    public void getResponse() {
+        // TODO implement output building for frontend
+    }
 
 }
