@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import searchEngine.searchEngine.model.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
+import searchEngine.searchEngine.service.QuerySQLService;
 
 @SpringBootApplication
 @PropertySource("classpath:env.properties")
@@ -18,8 +19,10 @@ public class SearchEngineApplication {
 
 	@Bean
 	CommandLineRunner run(SQLRepo sqlRepo) {
+		QuerySQLService service = new QuerySQLService(sqlRepo);
+
 		return args -> {
-			sqlRepo.saveAndFlush(new Query("dog"));
+			service.create(new Query("dog"));
 		};
 	}
 
