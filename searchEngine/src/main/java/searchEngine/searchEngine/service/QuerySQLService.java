@@ -5,10 +5,10 @@ import searchEngine.searchEngine.model.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
 
 @Service
-public class QuerySQLServiceImplementation {
+public class QuerySQLService {
     private final SQLRepo sqlRepo;
 
-    public QuerySQLServiceImplementation(SQLRepo sqlRepo) {
+    public QuerySQLService(SQLRepo sqlRepo) {
         this.sqlRepo = sqlRepo;
     }
 
