@@ -15,4 +15,8 @@ public class QuerySQLService {
     public Query create(Query query) {
         return sqlRepo.saveAndFlush(query);
     }
+
+    public void delete(Query query) {
+        sqlRepo.delete(query);
+    }
 }
