@@ -3,7 +3,9 @@ package searchEngine.searchEngine.model;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * Represents search query on a website.
@@ -24,9 +26,11 @@ public class Query {
     @Column(name = "sort_direction")
     private final SortDirection sortDirection;
 
-    @CreationTimestamp
-    @Column(name = "searched_at", updatable = false)
-    private LocalDateTime searchedAt;
+    @Column(name = "searched_on", nullable = false)
+    private LocalDate searchedOn = LocalDate.now();
+
+    @Column(name = "searched_at", nullable = false)
+    private LocalTime searchedAt = LocalTime.now();
 
 
 
@@ -63,7 +67,11 @@ public class Query {
         return sortDirection;
     }
 
-    public LocalDateTime getSearchedAt() {
+    public LocalDate getSearchedOn() {
+        return searchedOn;
+    }
+
+    public LocalTime getSearchedAt() {
         return searchedAt;
     }
 }
