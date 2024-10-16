@@ -24,11 +24,11 @@ public class Query {
     @Column(name = "sort_direction", updatable = false)
     private final SortDirection sortDirection;
 
-    @Column(name = "searched_on", nullable = false, updatable = false)
-    private final LocalDate searchedOn = LocalDate.now();
+    @Column(name = "date", nullable = false, updatable = false)
+    private final LocalDate date = LocalDate.now();
 
-    @Column(name = "searched_at", nullable = false, updatable = false)
-    private final LocalTime searchedAt = LocalTime.now();
+    @Column(name = "time", nullable = false, updatable = false)
+    private final LocalTime time = LocalTime.now();
 
 
 
@@ -66,10 +66,10 @@ public class Query {
     }
 
     public LocalDate getSearchedOn() {
-        return searchedOn;
+        return date;
     }
 
     public LocalTime getSearchedAt() {
-        return searchedAt;
+        return time;
     }
 }
