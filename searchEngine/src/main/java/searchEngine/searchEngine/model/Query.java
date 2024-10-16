@@ -17,20 +17,20 @@ public class Query {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "text")
+    @Column(name = "text", updatable = false)
     private final String text;
 
-    @Column(name = "sort_field")
+    @Column(name = "sort_field", updatable = false)
     private final String sortField;
 
-    @Column(name = "sort_direction")
+    @Column(name = "sort_direction", updatable = false)
     private final SortDirection sortDirection;
 
-    @Column(name = "searched_on", nullable = false)
-    private LocalDate searchedOn = LocalDate.now();
+    @Column(name = "searched_on", nullable = false, updatable = false)
+    private final LocalDate searchedOn = LocalDate.now();
 
-    @Column(name = "searched_at", nullable = false)
-    private LocalTime searchedAt = LocalTime.now();
+    @Column(name = "searched_at", nullable = false, updatable = false)
+    private final LocalTime searchedAt = LocalTime.now();
 
 
 
