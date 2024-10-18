@@ -12,39 +12,73 @@ import java.time.LocalTime;
 @Entity
 public class Query {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "text", updatable = false)
+    @Column(name = "text", nullable = false, updatable = false)
     private final String text;
 
     @Column(name = "sort_field", updatable = false)
-    private final String sortField;
+    private String sortField;
 
-    @Column(name = "sort_direction", updatable = false)
+    @Column(name = "sort_direction", nullable = false, updatable = false)
+    @Enumerated(EnumType.STRING)
     private final SortDirection sortDirection;
 
-    @Column(name = "date", nullable = false, updatable = false)
-    private final LocalDate date = LocalDate.now();
+    @Column(name = "searched_on", nullable = false, updatable = false)
+    private final LocalDate date;
 
-    @Column(name = "time", nullable = false, updatable = false)
-    private final LocalTime time = LocalTime.now();
-
-
+    @Column(name = "searched_at", nullable = false, updatable = false)
+    private final LocalTime time;
 
 
+
+
+
+    public Query() {
+        this.id = generateCustomID();
+        this.text = "";
+        this.sortDirection = SortDirection.ASC;
+        this.date = LocalDate.now();
+        this.time = LocalTime.now();
+    }
 
     public Query(String text) {
+        this.id = generateCustomID();
         this.text = text;
-        this.sortField = "";
         this.sortDirection = SortDirection.ASC;
+        this.date = LocalDate.now();
+        this.time = LocalTime.now();
+    }
+
+    public Query(String text, String sortField) {
+        this.id = generateCustomID();
+        this.text = text;
+        this.sortField = sortField;
+        this.sortDirection = SortDirection.ASC;
+        this.date = LocalDate.now();
+        this.time = LocalTime.now();
     }
 
     public Query(String text, String sortField, SortDirection sortDirection) {
+        this.id = generateCustomID();
         this.text = text;
         this.sortField = sortField;
         this.sortDirection = sortDirection;
+        this.date = LocalDate.now();
+        this.time = LocalTime.now();
     }
+
+    public Query(String text, LocalDate date) {
+        this.id = generateCustomID();
+        this.text = text;
+        this.sortField = "";
+        this.sortDirection = SortDirection.ASC;
+        this.date = date;
+        this.time = LocalTime.now();
+    }
+
+
+
 
 
 
@@ -65,11 +99,15 @@ public class Query {
         return sortDirection;
     }
 
-    public LocalDate getSearchedOn() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public LocalTime getSearchedAt() {
+    public LocalTime getTime() {
         return time;
+    }
+
+    private Long generateCustomID() {
+        return System.currentTimeMillis();
     }
 }
