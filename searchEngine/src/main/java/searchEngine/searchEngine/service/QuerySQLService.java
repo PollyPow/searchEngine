@@ -6,12 +6,28 @@ import searchEngine.searchEngine.model.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class QuerySQLService {
     @Autowired
     private SQLRepo sqlRepo;
+
+
+
+
+    private List<Query> sortByDateAndTime(List<Query> queries) {
+        return queries.stream().sorted((q1, q2) -> {
+            int dateComparison = q1.getDate().compareTo(q2.getDate());
+
+            if(dateComparison != 0) {
+                return dateComparison;
+            } else {
+                return q1.getTime().compareTo(q2.getTime());
+            }
+        }).toList();
+    }
 
     public void create(Query query) {
         sqlRepo.saveAndFlush(query);
@@ -22,7 +38,7 @@ public class QuerySQLService {
     }
 
     public List<Query> getAllQueries() {
-        return sqlRepo.findAll();
+        return sortByDateAndTime(sqlRepo.findAll());
     }
 
     public List<Query> getQueriesByText(String text) {
