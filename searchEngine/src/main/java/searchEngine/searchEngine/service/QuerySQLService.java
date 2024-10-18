@@ -1,5 +1,6 @@
 package searchEngine.searchEngine.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import searchEngine.searchEngine.model.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
@@ -9,14 +10,11 @@ import java.util.List;
 
 @Service
 public class QuerySQLService {
-    private final SQLRepo sqlRepo;
+    @Autowired
+    private SQLRepo sqlRepo;
 
-    public QuerySQLService(SQLRepo sqlRepo) {
-        this.sqlRepo = sqlRepo;
-    }
-
-    public Query create(Query query) {
-        return sqlRepo.saveAndFlush(query);
+    public void create(Query query) {
+        sqlRepo.saveAndFlush(query);
     }
 
     public void delete(Query query) {
@@ -31,8 +29,8 @@ public class QuerySQLService {
         return sqlRepo.findByText(text);
     }
 
-    public List<Query> getQueriesDistinctByText(String text) {
-        return sqlRepo.findDistinctByText(text);
+    public List<Query> getQueriesDistinctByText() {
+        return sqlRepo.findDistinctByText();
     }
 
     public List<Query> getQueriesByDate(LocalDate date) {
@@ -44,11 +42,13 @@ public class QuerySQLService {
     }
 
     public List<Query> getAllQueriesFromToday() {
-        return sqlRepo.findDistinctByDateAfter(LocalDate.now());
+        return sqlRepo.findByDate(LocalDate.now());
     }
 
-    public List<Query> getAllQueriesFromLastWeek() {
-        return sqlRepo.findDistinctByDateAfter(LocalDate.now()
-                                                .minusWeeks(1));
+    public List<Query> getAllQueriesFromLastSevenDays() {
+        int days = 7;
+
+        return sqlRepo.findByDateAfter(LocalDate.now()
+                                                .minusDays(days + 1));
     }
  }
