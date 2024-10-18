@@ -17,13 +17,4 @@ public class SearchEngineApplication {
 		SpringApplication.run(SearchEngineApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner run(SQLRepo sqlRepo) {
-		QuerySQLService service = new QuerySQLService(sqlRepo);
-
-		return args -> {
-			service.create(new Query("dog"));
-		};
-	}
-
 }
