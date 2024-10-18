@@ -3,7 +3,6 @@ package searchEngine.searchEngine.service;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -76,6 +75,19 @@ public class QuerySQLServiceTests {
     }
 
     @Test
+    public void QuerySQLService_GetAllQueries_EarlierMadeQueryAppearsFirst() {
+        int total = 2;
+        sqlRepo.saveAndFlush(new Query("mouse", LocalDate.now()));
+        sqlRepo.saveAndFlush(new Query("cat", LocalDate.now().minusDays(1)));
+
+        List<Query> queries = service.getAllQueries();
+
+        Assertions.assertNotNull(queries);
+        Assertions.assertEquals(total, queries.size(), String.format("Size of queries must be %d", total));
+        Assertions.assertEquals("cat", queries.getFirst().getText());
+    }
+
+    @Test
     public void QuerySQLService_GetQueriesByText_FindAllQueriesWithGivenText() {
         String text = "cat";
         int total = 10;
@@ -94,7 +106,7 @@ public class QuerySQLServiceTests {
     public void QuerySQLService_GetQueriesDistinctByText_ReturnOneQueryWithGivenText() {
         String text = "hamster";
         int total = 10;
-        int expected_size = 1;
+        int expectedSize = 1;
         for(int i = 0; i < total; ++i) {
             sqlRepo.saveAndFlush(new Query(text));
         }
@@ -109,9 +121,9 @@ public class QuerySQLServiceTests {
 
         //filtering queries by given text to check its size
         List<Query> filtered_list = queries.stream().filter(q -> q.getText().equals(text)).toList();
-        int actual_size = filtered_list.size();
+        int actualSize = filtered_list.size();
 
-        Assertions.assertEquals(expected_size, actual_size, String.format("Size of list must be %d", expected_size));
+        Assertions.assertEquals(expectedSize, actualSize, String.format("Size of list must be %d", expectedSize));
     }
 
     @Test
