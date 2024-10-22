@@ -2,6 +2,7 @@ package searchEngine.searchEngine.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -14,7 +15,11 @@ public interface SQLRepo extends JpaRepository<searchEngine.searchEngine.model.Q
     @Query("SELECT q FROM Query q WHERE q.id IN (SELECT MIN(q2.id) FROM Query q2 GROUP BY q2.text)")
     List<searchEngine.searchEngine.model.Query> findDistinctByText();
 
-    List<searchEngine.searchEngine.model.Query> findByDate(LocalDate date);
+    @Query("SELECT q FROM Query q WHERE FUNCTION('DATE', q.dateAndTime) = :date")
+    List<searchEngine.searchEngine.model.Query> findByDate(@Param("date") LocalDate date);
+
     List<searchEngine.searchEngine.model.Query> findBySortField(String sortField);
-    List<searchEngine.searchEngine.model.Query> findByDateAfter(LocalDate date);
+
+    @Query("SELECT q FROM Query q WHERE FUNCTION('DATE', q.dateAndTime) > :date")
+    List<searchEngine.searchEngine.model.Query> findByDateAfter(@Param("date") LocalDate date);
 }

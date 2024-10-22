@@ -11,6 +11,8 @@ import searchEngine.searchEngine.model.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,20 +45,21 @@ public class QuerySQLServiceTests {
     @Test
     public void QuerySQLService_Create_SaveNewQueryToDB() {
         Query query = new Query("dog", "pet type");
-        Long id = query.getId();
 
         service.create(query);
 
+        Long id = query.getId();
         Assertions.assertTrue(sqlRepo.existsById(id));
     }
 
     @Test
     public void QuerySQLService_Delete_DeleteQueryFromDB() {
         Query query = new Query("dog", "pet type");
-        Long id = query.getId();
+        sqlRepo.saveAndFlush(query);
 
         service.delete(query);
 
+        Long id = query.getId();
         Assertions.assertFalse(sqlRepo.existsById(id));
     }
 
@@ -77,8 +80,8 @@ public class QuerySQLServiceTests {
     @Test
     public void QuerySQLService_GetAllQueries_EarlierMadeQueryAppearsFirst() {
         int total = 2;
-        sqlRepo.saveAndFlush(new Query("mouse", LocalDate.now()));
-        sqlRepo.saveAndFlush(new Query("cat", LocalDate.now().minusDays(1)));
+        sqlRepo.saveAndFlush(new Query("mouse", LocalDateTime.now()));
+        sqlRepo.saveAndFlush(new Query("cat", LocalDateTime.now().minusDays(1)));
 
         List<Query> queries = service.getAllQueries();
 
@@ -164,14 +167,14 @@ public class QuerySQLServiceTests {
 
     @Test
     public void QuerySQLService_GetQueriesByDate_FindAllQueriesMadeOnGivenDate() {
-        LocalDate date = LocalDate.of(2024, 10, 17);
-        sqlRepo.saveAndFlush(new Query("sheep", date));
+        LocalDateTime dateAndTime = LocalDateTime.of(LocalDate.of(2024, 10,17), LocalTime.of(1, 15));
+        sqlRepo.saveAndFlush(new Query("sheep", dateAndTime));
         int expected = 1;
 
-        List<Query> queries = service.getQueriesByDate(date);
+        List<Query> queries = service.getQueriesByDate(dateAndTime.toLocalDate());
 
         Assertions.assertNotNull(queries);
-        Assertions.assertTrue(queries.stream().allMatch(q -> q.getDate().isEqual(date)), "Query must have been made on given date!");
+        Assertions.assertTrue(queries.stream().allMatch(q -> q.getDateAndTime().toLocalDate().isEqual(dateAndTime.toLocalDate())), "Query must have been made on given date!");
         Assertions.assertEquals(expected, queries.size(), String.format("Size of list must be %d", expected));
     }
 
@@ -204,20 +207,22 @@ public class QuerySQLServiceTests {
 
         Assertions.assertNotNull(queries);
         Assertions.assertEquals(total, queries.size(), String.format("Size of the list must equal %d", total));
-        Assertions.assertTrue(queries.stream().allMatch(q -> q.getDate().isEqual(today)), "Date must be today!");
+        Assertions.assertTrue(queries.stream().allMatch(q -> q.getDateAndTime().toLocalDate().isEqual(today)), "Date must be today!");
     }
 
     @Test
     public void QuerySQLService_GetAllQueriesFromLastWeek_FindAllQueriesMadeLastWeek() {
-        LocalDate date = LocalDate.now().minusWeeks(1);
-        sqlRepo.saveAndFlush(new Query("cow", date));
-        sqlRepo.saveAndFlush(new Query("cow", LocalDate.now()));
+        LocalDateTime dateAndTime = LocalDateTime.now().minusWeeks(1);
+        sqlRepo.saveAndFlush(new Query("cow", dateAndTime));
+        sqlRepo.saveAndFlush(new Query("cow", LocalDateTime.now()));
         int expected = 2;
 
         List<Query> queries = service.getAllQueriesFromLastSevenDays();
 
         Assertions.assertNotNull(queries);
-        Assertions.assertTrue(queries.stream().allMatch(q -> q.getDate().isEqual(date) || q.getDate().isAfter(date)), "All queries must have been made last week!");
+        Assertions.assertTrue(queries.stream().allMatch(q -> q.getDateAndTime().toLocalDate().isEqual(dateAndTime.toLocalDate())
+                                                                || q.getDateAndTime().toLocalDate().isAfter(dateAndTime.toLocalDate())),
+                                                                "All queries must have been made last week!");
         Assertions.assertEquals(expected, queries.size(), String.format("Size of list must be %d", expected));
     }
 }

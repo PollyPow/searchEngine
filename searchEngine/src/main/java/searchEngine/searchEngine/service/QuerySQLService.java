@@ -6,6 +6,7 @@ import searchEngine.searchEngine.model.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -19,12 +20,14 @@ public class QuerySQLService {
 
     private List<Query> sortByDateAndTime(List<Query> queries) {
         return queries.stream().sorted((q1, q2) -> {
-            int dateComparison = q1.getDate().compareTo(q2.getDate());
+            int dateComparison = q1.getDateAndTime().toLocalDate()
+                                        .compareTo(q2.getDateAndTime().toLocalDate());
 
             if(dateComparison != 0) {
                 return dateComparison;
             } else {
-                return q1.getTime().compareTo(q2.getTime());
+                return q1.getDateAndTime().toLocalTime()
+                                    .compareTo(q2.getDateAndTime().toLocalTime());
             }
         }).toList();
     }
