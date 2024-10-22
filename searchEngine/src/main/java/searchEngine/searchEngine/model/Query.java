@@ -1,10 +1,9 @@
 package searchEngine.searchEngine.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
+import java.time.LocalDateTime;
 /**
  * Represents search query on a website.
  */
@@ -26,10 +25,7 @@ public class Query {
     private final SortDirection sortDirection;
 
     @Column(name = "searched_on", nullable = false, updatable = false)
-    private final LocalDate date;
-
-    @Column(name = "searched_at", nullable = false, updatable = false)
-    private final LocalTime time;
+    private LocalDateTime dateAndTime;
 
 
 
@@ -38,39 +34,34 @@ public class Query {
     public Query() {
         this.text = "";
         this.sortDirection = SortDirection.ASC;
-        this.date = LocalDate.now();
-        this.time = LocalTime.now();
+        this.dateAndTime = LocalDateTime.now();
     }
 
     public Query(String text) {
         this.text = text;
         this.sortDirection = SortDirection.ASC;
-        this.date = LocalDate.now();
-        this.time = LocalTime.now();
+        this.dateAndTime = LocalDateTime.now();
     }
 
     public Query(String text, String sortField) {
         this.text = text;
         this.sortField = sortField;
         this.sortDirection = SortDirection.ASC;
-        this.date = LocalDate.now();
-        this.time = LocalTime.now();
+        this.dateAndTime = LocalDateTime.now();
     }
 
     public Query(String text, String sortField, SortDirection sortDirection) {
         this.text = text;
         this.sortField = sortField;
         this.sortDirection = sortDirection;
-        this.date = LocalDate.now();
-        this.time = LocalTime.now();
+        this.dateAndTime = LocalDateTime.now();
     }
 
-    public Query(String text, LocalDate date) {
+    public Query(String text, LocalDateTime dateAndTime) {
         this.text = text;
         this.sortField = "";
         this.sortDirection = SortDirection.ASC;
-        this.date = date;
-        this.time = LocalTime.now();
+        this.dateAndTime = dateAndTime;
     }
 
 
@@ -95,11 +86,10 @@ public class Query {
         return sortDirection;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDateTime getDateAndTime() {
+        return dateAndTime;
     }
 
-    public LocalTime getTime() {
-        return time;
-    }
+
+
 }
