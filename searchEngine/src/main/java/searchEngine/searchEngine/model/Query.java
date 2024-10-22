@@ -1,7 +1,7 @@
 package searchEngine.searchEngine.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
+import javax.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 /**
@@ -14,17 +14,21 @@ public class Query {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "text", nullable = false, updatable = false)
+    @Column(name = "text")
+    @NotNull
     private String text;
 
-    @Column(name = "sort_field", updatable = false)
+    @Column(name = "sort_field")
+    @NotNull
     private String sortField;
 
-    @Column(name = "sort_direction", nullable = false, updatable = false)
+    @Column(name = "sort_direction")
     @Enumerated(EnumType.STRING)
+    @NotNull
     private SortDirection sortDirection;
 
-    @Column(name = "searched_on", nullable = false, updatable = false)
+    @Column(name = "searched_at")
+    @NotNull
     private LocalDateTime dateAndTime;
 
 
