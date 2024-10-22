@@ -12,6 +12,7 @@ import java.time.LocalTime;
 @Entity
 public class Query {
     @Id
+    @GeneratedValue
     private Long id;
 
     @Column(name = "text", nullable = false, updatable = false)
@@ -35,7 +36,6 @@ public class Query {
 
 
     public Query() {
-        this.id = generateCustomID();
         this.text = "";
         this.sortDirection = SortDirection.ASC;
         this.date = LocalDate.now();
@@ -43,7 +43,6 @@ public class Query {
     }
 
     public Query(String text) {
-        this.id = generateCustomID();
         this.text = text;
         this.sortDirection = SortDirection.ASC;
         this.date = LocalDate.now();
@@ -51,7 +50,6 @@ public class Query {
     }
 
     public Query(String text, String sortField) {
-        this.id = generateCustomID();
         this.text = text;
         this.sortField = sortField;
         this.sortDirection = SortDirection.ASC;
@@ -60,7 +58,6 @@ public class Query {
     }
 
     public Query(String text, String sortField, SortDirection sortDirection) {
-        this.id = generateCustomID();
         this.text = text;
         this.sortField = sortField;
         this.sortDirection = sortDirection;
@@ -69,7 +66,6 @@ public class Query {
     }
 
     public Query(String text, LocalDate date) {
-        this.id = generateCustomID();
         this.text = text;
         this.sortField = "";
         this.sortDirection = SortDirection.ASC;
@@ -105,9 +101,5 @@ public class Query {
 
     public LocalTime getTime() {
         return time;
-    }
-
-    private Long generateCustomID() {
-        return System.currentTimeMillis();
     }
 }
