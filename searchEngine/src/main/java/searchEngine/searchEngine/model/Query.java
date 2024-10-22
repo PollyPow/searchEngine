@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+
+
+
+
 /**
  * Represents search query on a website.
  */
@@ -36,35 +40,29 @@ public class Query {
 
 
     public Query() {
-        this.text = "";
-        this.sortDirection = SortDirection.ASC;
-        this.dateAndTime = LocalDateTime.now();
+        this("", "", SortDirection.ASC, LocalDateTime.now());
     }
 
     public Query(String text) {
-        this.text = text;
-        this.sortDirection = SortDirection.ASC;
-        this.dateAndTime = LocalDateTime.now();
+        this(text, "", SortDirection.ASC, LocalDateTime.now());
     }
 
     public Query(String text, String sortField) {
-        this.text = text;
-        this.sortField = sortField;
-        this.sortDirection = SortDirection.ASC;
-        this.dateAndTime = LocalDateTime.now();
+        this(text, sortField, SortDirection.ASC, LocalDateTime.now());
     }
 
     public Query(String text, String sortField, SortDirection sortDirection) {
-        this.text = text;
-        this.sortField = sortField;
-        this.sortDirection = sortDirection;
-        this.dateAndTime = LocalDateTime.now();
+        this(text, sortField, sortDirection, LocalDateTime.now());
     }
 
     public Query(String text, LocalDateTime dateAndTime) {
+        this(text, "", SortDirection.ASC, dateAndTime);
+    }
+
+    public Query(String text, String sortField, SortDirection sortDirection, LocalDateTime dateAndTime) {
         this.text = text;
-        this.sortField = "";
-        this.sortDirection = SortDirection.ASC;
+        this.sortField = sortField;
+        this.sortDirection = sortDirection;
         this.dateAndTime = dateAndTime;
     }
 
