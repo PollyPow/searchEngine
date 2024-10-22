@@ -15,14 +15,14 @@ public class Query {
     private Long id;
 
     @Column(name = "text", nullable = false, updatable = false)
-    private final String text;
+    private String text;
 
     @Column(name = "sort_field", updatable = false)
     private String sortField;
 
     @Column(name = "sort_direction", nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)
-    private final SortDirection sortDirection;
+    private SortDirection sortDirection;
 
     @Column(name = "searched_on", nullable = false, updatable = false)
     private LocalDateTime dateAndTime;
@@ -90,6 +90,23 @@ public class Query {
         return dateAndTime;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public void setText(String text) {
+        this.text = text;
+    }
 
+    public void setSortField(String sortField) {
+        this.sortField = sortField;
+    }
+
+    public void setSortDirection(SortDirection sortDirection) {
+        this.sortDirection = sortDirection;
+    }
+
+    public void setDateAndTime(LocalDateTime dateAndTime) {
+        this.dateAndTime = dateAndTime;
+    }
 }
