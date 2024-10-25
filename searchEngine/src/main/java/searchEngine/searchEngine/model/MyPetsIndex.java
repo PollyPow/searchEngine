@@ -10,9 +10,6 @@ import java.util.List;
 
 @Document(indexName = "my_pets")
 public class MyPetsIndex {
-    @Id
-    private String id;
-
     @Field(type = FieldType.Text, name = "name")
     private String name;
 
@@ -40,12 +37,7 @@ public class MyPetsIndex {
     public MyPetsIndex() {
     }
 
-    public MyPetsIndex(String id, String name, int ageYears, PetType petType, String breed, String foodBrand) {
-        this(id, name, ageYears, petType, breed, new ArrayList<String>(), new ArrayList<String>(), "", foodBrand);
-    }
-
-    public MyPetsIndex(String id, String name, int ageYears, PetType petType, String breed, List<String> parentsNames, List<String> illnesses, String previousOwnersName, String foodBrand) {
-        this.id = id;
+    public MyPetsIndex(String name, int ageYears, PetType petType, String breed, List<String> parentsNames, List<String> illnesses, String previousOwnersName, String foodBrand) {
         this.name = name;
         this.ageYears = ageYears;
         this.petType = petType;
@@ -54,10 +46,6 @@ public class MyPetsIndex {
         this.illnesses = illnesses;
         this.previousOwnersName = previousOwnersName;
         this.foodBrand = foodBrand;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getName() {
@@ -90,10 +78,6 @@ public class MyPetsIndex {
 
     public String getFoodBrand() {
         return foodBrand;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public void setName(String name) {
