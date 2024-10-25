@@ -31,7 +31,7 @@ public class MyPetsIndex {
     @Field(type = FieldType.Text, name = "illnesses")
     private List<String> illnesses;
 
-    @Field(type = FieldType.Keyword, name = "previous_owners_name")
+    @Field(type = FieldType.Text, name = "previous_owners_name")
     private String previousOwnersName;
 
     @Field(type = FieldType.Text, name = "food_brand")
