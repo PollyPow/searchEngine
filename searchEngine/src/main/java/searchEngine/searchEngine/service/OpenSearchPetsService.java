@@ -14,7 +14,7 @@ public class OpenSearchService {
     @Autowired
     private OpenSearchClient openSearchClient;
 
-    public SearchResponse<MyPetsIndex> findPet(String name) {
+    public SearchResponse<MyPetsIndex> getPetsByName(String name) {
         SearchRequest request = new SearchRequest.Builder()
                 .index("my_pets")
                 .query(q -> q.match(m -> m.field("name").query(FieldValue.of(name))))
@@ -23,7 +23,8 @@ public class OpenSearchService {
         try {
             return openSearchClient.search(request, MyPetsIndex.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
+            e.getStackTrace();
             return null;
         }
     }

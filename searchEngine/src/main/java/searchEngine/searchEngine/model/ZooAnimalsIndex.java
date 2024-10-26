@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.util.List;
 
 @Document(indexName = "zoo_animals")
-public class ZooAnimals {
+public class ZooAnimalsIndex {
 
     @Id
     private String id;
@@ -40,10 +40,10 @@ public class ZooAnimals {
     @Field(type = FieldType.Integer, name = "times_to_feed_per_day")
     private int timesToFeedPerDay;
 
-    public ZooAnimals() {
+    public ZooAnimalsIndex() {
     }
 
-    public ZooAnimals(String id, String name, int ageYears, String naturalHabit, String species, List<String> parents_names, List<String> illnesses, int yearsInZoo, String typeOfFood, int timesToFeedPerDay) {
+    public ZooAnimalsIndex(String id, String name, int ageYears, String naturalHabit, String species, List<String> parents_names, List<String> illnesses, int yearsInZoo, String typeOfFood, int timesToFeedPerDay) {
         this.id = id;
         this.name = name;
         this.ageYears = ageYears;
