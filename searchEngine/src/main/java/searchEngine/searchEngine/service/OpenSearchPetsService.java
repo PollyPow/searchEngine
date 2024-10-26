@@ -5,18 +5,21 @@ import org.opensearch.client.opensearch._types.FieldValue;
 import org.opensearch.client.opensearch.core.SearchRequest;
 import org.opensearch.client.opensearch.core.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import searchEngine.searchEngine.model.MyPetsIndex;
 
 import java.io.IOException;
 
-public class OpenSearchService {
+@Service
+public class OpenSearchPetsService {
 
     @Autowired
     private OpenSearchClient openSearchClient;
+    private final String index = "my_pets";
 
     public SearchResponse<MyPetsIndex> getPetsByName(String name) {
         SearchRequest request = new SearchRequest.Builder()
-                .index("my_pets")
+                .index(index)
                 .query(q -> q.match(m -> m.field("name").query(FieldValue.of(name))))
                 .build();
 
