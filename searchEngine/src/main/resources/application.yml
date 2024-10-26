@@ -3,9 +3,16 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: ${SQL_DB_PASSWORD}
+    password: QmhnsDdWNF3C7rMx
   jpa:
     hibernate:
       ddl-auto: update
       dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+  opensearch:
+    url: https://localhost:9200
+    username: admin
+    password: BJfz3esCv$VssqGPq
+    indexes:
+      my_pets: my_pets
+      zoo_animals: zoo_animals
