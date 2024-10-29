@@ -3,7 +3,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: QmhnsDdWNF3C7rMx
+    password: ${SQL_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,7 +12,7 @@ spring:
   opensearch:
     url: https://localhost:9200
     username: admin
-    password: BJfz3esCv$VssqGPq
+    password: ${OPENSEARCH_PASSWORD}
     indexes:
       my_pets: my_pets
       zoo_animals: zoo_animals
