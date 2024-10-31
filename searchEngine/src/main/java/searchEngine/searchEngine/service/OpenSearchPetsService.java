@@ -7,12 +7,15 @@ import org.opensearch.client.opensearch.core.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import searchEngine.searchEngine.model.MyPetsIndex;
+import searchEngine.searchEngine.repository.OpensearchRepo;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class OpenSearchPetsService {
 
+    /*
     @Autowired
     private OpenSearchClient openSearchClient;
     private final String index = "my_pets";
@@ -30,5 +33,13 @@ public class OpenSearchPetsService {
             e.getStackTrace();
             return null;
         }
+    }
+     */
+
+    @Autowired
+    private OpensearchRepo repo;
+
+    public List<MyPetsIndex> getPetsByName(String name) {
+        return repo.findByNameLike(name);
     }
 }

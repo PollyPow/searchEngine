@@ -1,5 +1,6 @@
 package searchEngine.searchEngine.model;
 
+import jakarta.persistence.GeneratedValue;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -10,6 +11,10 @@ import java.util.List;
 
 @Document(indexName = "my_pets")
 public class MyPetsIndex {
+    @Id
+    @GeneratedValue
+    private String id;
+
     @Field(type = FieldType.Text, name = "name")
     private String name;
 
@@ -46,6 +51,10 @@ public class MyPetsIndex {
         this.illnesses = illnesses;
         this.previousOwnersName = previousOwnersName;
         this.foodBrand = foodBrand;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
