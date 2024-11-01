@@ -11,7 +11,7 @@ spring:
     show-sql: true
 
 opensearch:
-  url: http://localhost:9200
+  url: https://localhost:9200
   username: admin
   password: ${OPENSEARCH_PASSWORD}
   indexes:
