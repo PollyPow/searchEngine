@@ -6,8 +6,10 @@ import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.opensearch.core.IndexRequest;
 import org.opensearch.client.opensearch.core.SearchResponse;
 import org.opensearch.client.opensearch.core.search.Hit;
+import org.opensearch.spring.boot.autoconfigure.test.DataOpenSearchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import searchEngine.searchEngine.model.MyPetsIndex;
 
 import java.util.List;
