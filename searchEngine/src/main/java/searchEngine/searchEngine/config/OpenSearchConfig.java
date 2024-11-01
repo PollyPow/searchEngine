@@ -51,7 +51,7 @@ public class OpenSearchConfig {
     public OpenSearchClient openSearchClient() {
         CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY,
-                new UsernamePasswordCredentials(this.username, this.password));
+                new UsernamePasswordCredentials(username, password));
 
         RestClient client = RestClient.builder(new HttpHost("localhost", 9200, "https"))
                 .setHttpClientConfigCallback(httpClientBuilder -> {
