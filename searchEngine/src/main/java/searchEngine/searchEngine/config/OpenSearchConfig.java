@@ -49,32 +49,8 @@ public class OpenSearchConfig {
 
     @Bean
     public OpenSearchClient openSearchClient() {
-        CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(AuthScope.ANY,
-                new UsernamePasswordCredentials(username, password));
-
-        RestClient client = RestClient.builder(new HttpHost("localhost", 9200, "https"))
-                .setHttpClientConfigCallback(httpClientBuilder -> {
-                    try {
-                        SSLContext sslContext = SSLContextBuilder.create()
-                                .loadTrustMaterial(null, new TrustSelfSignedStrategy())
-                                .build();
-
-                        return httpClientBuilder
-                                .setSSLContext(sslContext)
-                                //.setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
-                                .setDefaultCredentialsProvider(credentialsProvider);
-                    } catch (NoSuchAlgorithmException | KeyStoreException | KeyManagementException e) {
-                        throw new RuntimeException("Failed to initialize SSL context for OpenSearch client", e);
-                    }
-                })
-                .build();
-
-        OpenSearchTransport transport = new RestClientTransport(
-                client,
-                new JacksonJsonpMapper()
-        );
-
+        RestClient client = RestClient.builder(new HttpHost("localhost", 9200, "http")).build();
+        OpenSearchTransport transport = new RestClientTransport(client, new JacksonJsonpMapper());
 
         return new OpenSearchClient(transport);
     }
