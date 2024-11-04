@@ -2,12 +2,10 @@ package searchEngine.searchEngine.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import searchEngine.searchEngine.model.Query;
+import searchEngine.searchEngine.modelSQL.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service

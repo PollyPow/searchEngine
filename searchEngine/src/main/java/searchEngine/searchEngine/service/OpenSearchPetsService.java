@@ -6,10 +6,9 @@ import org.opensearch.client.opensearch.core.SearchRequest;
 import org.opensearch.client.opensearch.core.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import searchEngine.searchEngine.model.MyPetsIndex;
+import searchEngine.searchEngine.modelOpensearch.MyPetsIndex;
 
 import java.io.IOException;
-import java.util.List;
 
 @Service
 public class OpenSearchPetsService {

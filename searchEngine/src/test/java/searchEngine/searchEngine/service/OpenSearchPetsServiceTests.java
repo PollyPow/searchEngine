@@ -8,7 +8,7 @@ import org.opensearch.client.opensearch.core.SearchResponse;
 import org.opensearch.client.opensearch.core.search.Hit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import searchEngine.searchEngine.model.MyPetsIndex;
+import searchEngine.searchEngine.modelOpensearch.MyPetsIndex;
 
 import java.util.List;
 

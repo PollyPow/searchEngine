@@ -1,4 +1,4 @@
-package searchEngine.searchEngine.model;
+package searchEngine.searchEngine.modelOpensearch;
 
 public enum PetType {
     DOG("Dog"),
