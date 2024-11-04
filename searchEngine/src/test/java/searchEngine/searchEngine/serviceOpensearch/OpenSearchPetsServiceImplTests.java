@@ -1,4 +1,4 @@
-package searchEngine.searchEngine.serviceSQL;
+package searchEngine.searchEngine.serviceOpensearch;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,18 +9,18 @@ import org.opensearch.client.opensearch.core.search.Hit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import searchEngine.searchEngine.modelOpensearch.MyPetsIndex;
-import searchEngine.searchEngine.serviceOpensearch.OpenSearchPetsService;
+import searchEngine.searchEngine.serviceOpensearch.implementation.OpenSearchPetsServiceImpl;
 
 import java.util.List;
 
 @SpringBootTest
-public class OpenSearchPetsServiceTests {
+public class OpenSearchPetsServiceImplTests {
 
     @Autowired
     private OpenSearchClient client;
 
     @Autowired
-    private OpenSearchPetsService service;
+    private OpenSearchPetsServiceInterface service;
 
     @Test
     public void OpenSearchService_GetPetsByName_FindAllPetsByName () {
