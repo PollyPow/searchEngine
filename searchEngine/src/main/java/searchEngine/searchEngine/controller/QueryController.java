@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import searchEngine.searchEngine.modelSQL.Query;
-import searchEngine.searchEngine.service.QuerySQLService;
+import searchEngine.searchEngine.serviceSQL.implementation.QuerySQLServiceImpl;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/query")
 public class QueryController {
     @Autowired
-    private QuerySQLService service;
+    private QuerySQLServiceImpl service;
 
     @GetMapping("/history")
     public List<Query> getHistory() {

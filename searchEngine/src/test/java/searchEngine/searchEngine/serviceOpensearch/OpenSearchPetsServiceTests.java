@@ -1,4 +1,4 @@
-package searchEngine.searchEngine.service;
+package searchEngine.searchEngine.serviceSQL;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,6 +9,7 @@ import org.opensearch.client.opensearch.core.search.Hit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import searchEngine.searchEngine.modelOpensearch.MyPetsIndex;
+import searchEngine.searchEngine.serviceOpensearch.OpenSearchPetsService;
 
 import java.util.List;
 

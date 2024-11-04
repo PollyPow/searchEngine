@@ -1,4 +1,4 @@
-package searchEngine.searchEngine.service;
+package searchEngine.searchEngine.serviceSQL;
 
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import searchEngine.searchEngine.modelSQL.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
+import searchEngine.searchEngine.serviceSQL.implementation.QuerySQLServiceImpl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,12 +20,12 @@ import java.util.List;
 @SpringBootTest
 @Transactional
 @Commit
-public class QuerySQLServiceTests {
+public class QuerySQLServiceImplTests {
     @Autowired
     private SQLRepo sqlRepo;
 
     @Autowired
-    private QuerySQLService service;
+    private QuerySQLServiceInterface service;
 
     private static Query query;
 
