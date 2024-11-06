@@ -11,9 +11,4 @@ spring:
     show-sql: true
 
 opensearch:
-  url: https://localhost:9200
-  username: admin
-  password: ${OPENSEARCH_PASSWORD}
-  indexes:
-    my_pets: my_pets
-    zoo_animals: zoo_animals
+  hostAndPort: localhost:9200
