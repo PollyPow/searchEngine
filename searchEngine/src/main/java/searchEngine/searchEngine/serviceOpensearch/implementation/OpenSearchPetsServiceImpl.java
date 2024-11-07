@@ -7,16 +7,21 @@ import org.opensearch.client.opensearch.core.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import searchEngine.searchEngine.modelOpensearch.MyPetsIndex;
-import searchEngine.searchEngine.serviceOpensearch.OpenSearchPetsServiceInterface;
+import searchEngine.searchEngine.repository.PetsOpensearchRepo;
+import searchEngine.searchEngine.serviceOpensearch.OpenSearchPetsService;
 
 import java.io.IOException;
 
 @Service
-public class OpenSearchPetsServiceImpl implements OpenSearchPetsServiceInterface {
+public class OpenSearchPetsServiceImpl implements OpenSearchPetsService<MyPetsIndex> {
 
 
     @Autowired
     private OpenSearchClient openSearchClient;
+
+    @Autowired
+    private PetsOpensearchRepo repo;
+
     private final String index = "my_pets";
 
     @Override
@@ -35,4 +40,12 @@ public class OpenSearchPetsServiceImpl implements OpenSearchPetsServiceInterface
         }
     }
 
+    private void savePet(MyPetsIndex index) {
+        repo.save(index);
+    }
+
+    @Override
+    public void saveDoc(MyPetsIndex index) {
+        savePet(index);
+    }
 }
