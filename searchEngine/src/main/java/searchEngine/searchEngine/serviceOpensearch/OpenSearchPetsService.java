@@ -5,4 +5,5 @@ import searchEngine.searchEngine.modelOpensearch.MyPetsIndex;
 
 public interface OpenSearchPetsServiceInterface {
     SearchResponse<MyPetsIndex> getPetsByName(String name);
+    void savePet(MyPetsIndex index);
 }

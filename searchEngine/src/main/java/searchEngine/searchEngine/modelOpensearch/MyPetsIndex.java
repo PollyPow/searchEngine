@@ -7,11 +7,11 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.List;
+import java.util.UUID;
 
 @Document(indexName = "my_pets")
-public class MyPetsIndex {
+public class MyPetsIndex{
     @Id
-    @GeneratedValue
     private String id;
 
     @Field(type = FieldType.Text, name = "name")
@@ -39,6 +39,7 @@ public class MyPetsIndex {
     private String foodBrand;
 
     public MyPetsIndex() {
+        this.id = UUID.randomUUID().toString();
     }
 
     public MyPetsIndex(String name, int ageYears, PetType petType, String breed, List<String> parentsNames, List<String> illnesses, String previousOwnersName, String foodBrand) {
@@ -52,9 +53,7 @@ public class MyPetsIndex {
         this.foodBrand = foodBrand;
     }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
     public String getName() {
         return name;

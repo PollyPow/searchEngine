@@ -1,15 +1,16 @@
 package searchEngine.searchEngine.modelOpensearch;
 
+import jakarta.persistence.GeneratedValue;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.List;
+import java.util.UUID;
 
 @Document(indexName = "zoo_animals")
 public class ZooAnimalsIndex {
-
     @Id
     private String id;
 
@@ -41,10 +42,10 @@ public class ZooAnimalsIndex {
     private int timesToFeedPerDay;
 
     public ZooAnimalsIndex() {
+        this.id = UUID.randomUUID().toString();
     }
 
-    public ZooAnimalsIndex(String id, String name, int ageYears, String naturalHabit, String species, List<String> parents_names, List<String> illnesses, int yearsInZoo, String typeOfFood, int timesToFeedPerDay) {
-        this.id = id;
+    public ZooAnimalsIndex(String name, int ageYears, String naturalHabit, String species, List<String> parents_names, List<String> illnesses, int yearsInZoo, String typeOfFood, int timesToFeedPerDay) {
         this.name = name;
         this.ageYears = ageYears;
         this.naturalHabit = naturalHabit;
@@ -56,13 +57,7 @@ public class ZooAnimalsIndex {
         this.timesToFeedPerDay = timesToFeedPerDay;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    public String getId() { return id; }
 
     public String getName() {
         return name;
