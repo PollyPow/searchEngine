@@ -110,4 +110,6 @@ networks:
 ```bash
 docker-compose up -d opensearch-node1 opensearch-node2 opensearch-dashboards
 ```
+## Resources
+* [Opensearch Docker] (https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/#sample-docker-compose-file-for-development)
 
