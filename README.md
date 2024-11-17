@@ -33,9 +33,9 @@ Ensure you have the following installed on your system:
 ### Opensearch
 1. Docker Image: Use the official Opensearch and Opensearch Dashboards images from Docker Hub.
 2. Docker Compose Configuration:
-  Add this to your docker-compose.yml:
-  ´´´yaml
-  version: '3'
+Add this to your docker-compose.yml:
+´´´yaml
+version: '3'
 services:
   opensearch-node1:
     image: opensearchproject/opensearch:latest
@@ -105,8 +105,9 @@ volumes:
 
 networks:
   opensearch-net:
-  ´´´
+´´´
 3. Starting the Container: Run the following command:
-  ´´´
+  ´´´bash
   docker-compose up -d opensearch-node1 opensearch-node2 opensearch-dashboards
   ´´´
+
