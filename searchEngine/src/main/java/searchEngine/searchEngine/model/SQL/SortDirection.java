@@ -1,4 +1,4 @@
-package searchEngine.searchEngine.modelSQL;
+package searchEngine.searchEngine.model.SQL;
 
 public enum SortDirection {
     ASC("ASC"),

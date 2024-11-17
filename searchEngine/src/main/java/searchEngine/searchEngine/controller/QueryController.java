@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import searchEngine.searchEngine.modelSQL.Query;
+import searchEngine.searchEngine.model.SQL.Query;
 import searchEngine.searchEngine.serviceSQL.implementation.QuerySQLServiceImpl;
 
 import java.util.List;

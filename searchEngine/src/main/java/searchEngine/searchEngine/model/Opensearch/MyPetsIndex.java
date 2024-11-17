@@ -1,6 +1,5 @@
-package searchEngine.searchEngine.modelOpensearch;
+package searchEngine.searchEngine.model.Opensearch;
 
-import jakarta.persistence.GeneratedValue;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
