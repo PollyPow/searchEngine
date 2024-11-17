@@ -1,4 +1,4 @@
-package searchEngine.searchEngine.serviceSQL;
+package searchEngine.searchEngine.service.serviceSQL;
 
 import searchEngine.searchEngine.model.SQL.Query;
 

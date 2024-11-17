@@ -1,10 +1,10 @@
-package searchEngine.searchEngine.serviceSQL.implementation;
+package searchEngine.searchEngine.service.serviceSQL.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import searchEngine.searchEngine.model.SQL.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
-import searchEngine.searchEngine.serviceSQL.QuerySQLService;
+import searchEngine.searchEngine.service.serviceSQL.QuerySQLService;
 
 import java.time.LocalDate;
 import java.util.List;

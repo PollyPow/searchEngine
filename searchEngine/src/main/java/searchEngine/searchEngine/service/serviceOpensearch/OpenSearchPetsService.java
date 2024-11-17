@@ -1,4 +1,4 @@
-package searchEngine.searchEngine.serviceOpensearch;
+package searchEngine.searchEngine.service.serviceOpensearch;
 
 import org.opensearch.client.opensearch.core.SearchResponse;
 import searchEngine.searchEngine.model.Opensearch.MyPetsIndex;

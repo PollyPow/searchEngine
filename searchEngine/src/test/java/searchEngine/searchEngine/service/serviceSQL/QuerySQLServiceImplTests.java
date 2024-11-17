@@ -1,4 +1,4 @@
-package searchEngine.searchEngine.serviceSQL;
+package searchEngine.searchEngine.service.serviceSQL;
 
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
