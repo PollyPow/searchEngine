@@ -1,11 +1,11 @@
 package searchEngine.searchEngine.serviceSQL;
 
-import searchEngine.searchEngine.modelSQL.Query;
+import searchEngine.searchEngine.model.SQL.Query;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface QuerySQLServiceInterface {
+public interface QuerySQLService {
     default List<Query> sortByDateAndTime(List<Query> queries) {
         return queries.stream().sorted((q1, q2) -> {
             int dateComparison = q1.getDateAndTime().toLocalDate()

@@ -2,15 +2,15 @@ package searchEngine.searchEngine.serviceSQL.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import searchEngine.searchEngine.modelSQL.Query;
+import searchEngine.searchEngine.model.SQL.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
-import searchEngine.searchEngine.serviceSQL.QuerySQLServiceInterface;
+import searchEngine.searchEngine.serviceSQL.QuerySQLService;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class QuerySQLServiceImpl implements QuerySQLServiceInterface {
+public class QuerySQLServiceImpl implements QuerySQLService {
     @Autowired
     private SQLRepo sqlRepo;
 
