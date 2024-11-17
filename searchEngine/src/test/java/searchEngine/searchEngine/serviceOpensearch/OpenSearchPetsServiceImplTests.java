@@ -1,10 +1,9 @@
 package searchEngine.searchEngine.serviceOpensearch;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.opensearch.core.IndexRequest;
 import org.opensearch.client.opensearch.core.SearchResponse;
@@ -17,7 +16,6 @@ import searchEngine.searchEngine.repository.PetsOpensearchRepo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 @SpringBootTest
 public class OpenSearchPetsServiceImplTests {
@@ -30,7 +28,6 @@ public class OpenSearchPetsServiceImplTests {
 
     @Autowired
     private OpenSearchPetsService service;
-
 
 
 
@@ -63,18 +60,37 @@ public class OpenSearchPetsServiceImplTests {
             Assertions.assertDoesNotThrow(() -> { client.index(request); });
         }
 
-
-
         SearchResponse<MyPetsIndex> pets = service.getPetsByName(name);
         List<MyPetsIndex> listOfPets = pets.hits().hits().stream().map(Hit::source).toList();
-
-
-
 
         Assertions.assertNotNull(pets);
         Assertions.assertEquals(total, pets.hits().hits().size(), String.format("The amount of found pets should be %d", total));
         Assertions.assertTrue(listOfPets.stream().allMatch(p -> p.getName().equals(name)));
     }
+
+    @Test
+    public void OpenSearchPetsServiceTest_getPetsByPetType_FindAllPetsWithGivenType() {
+        String index = "my_pets";
+        ArrayList<String> parents = new ArrayList<String>();
+        parents.add("Alice");
+        parents.add("Bob");
+        ArrayList<String> illnesses = new ArrayList<String>();
+        PetType type = PetType.FISH;
+        MyPetsIndex pet = new MyPetsIndex("Goldie", 1, PetType.FISH, "Goldfish", parents, illnesses, null, "Tetra");
+        int total = 20;
+        for(int j = 0; j < total; ++j) {
+            IndexRequest<MyPetsIndex> request = IndexRequest.of(i -> i.index(index).id(null).document(pet));
+            Assertions.assertDoesNotThrow(() -> { client.index(request); });
+        }
+
+        SearchResponse<MyPetsIndex> pets = service.getPetsByPetType(type);
+        List<MyPetsIndex> listOfPets = pets.hits().hits().stream().map(Hit::source).toList();
+
+        Assertions.assertNotNull(pets);
+        Assertions.assertEquals(total, pets.hits().hits().size(), String.format("The amount of found pets should be %d", total));
+        Assertions.assertTrue(listOfPets.stream().allMatch(p -> p.getPetType().equals(type)));
+    }
+
 
     /*
     @Test
@@ -83,6 +99,8 @@ public class OpenSearchPetsServiceImplTests {
 
         Assertions.assertFalse(repo.findAll().iterator().hasNext());
     }
-    */
+     */
+
+
 }
 

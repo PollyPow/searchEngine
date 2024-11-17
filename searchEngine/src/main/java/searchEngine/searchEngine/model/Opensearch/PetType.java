@@ -1,16 +1,16 @@
 package searchEngine.searchEngine.model.Opensearch;
 
 public enum PetType {
-    DOG("Dog"),
-    CAT("Cat"),
-    HAMSTER("Hamster"),
-    GUINEA_PIG("Guinea Pig"),
-    FISH("Fish"),
-    PARROT("Parrot"),
-    HORSE("Horse"),
-    COW("Cow"),
-    PIG("Pig"),
-    SHEEP("Sheep");
+    DOG("DOG"),
+    CAT("CAT"),
+    HAMSTER("HAMSTER"),
+    GUINEA_PIG("GUINEA PIG"),
+    FISH("FISH"),
+    PARROT("PARROT"),
+    HORSE("HORSE"),
+    COW("COW"),
+    PIG("PIG"),
+    SHEEP("SHEEP");
 
     private String type;
 
