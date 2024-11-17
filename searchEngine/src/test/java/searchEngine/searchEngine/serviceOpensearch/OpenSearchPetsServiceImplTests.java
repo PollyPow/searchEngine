@@ -34,28 +34,18 @@ public class OpenSearchPetsServiceImplTests {
 
 
 
-    private static Stream<Arguments> provideDocParameters() {
+
+    @Test
+    public void OpenSearchPetsServiceTest_SavePet_SavesNewPet() {
         ArrayList<String> parents = new ArrayList<>();
         parents.add("Jane");
         parents.add("John");
-
         ArrayList<String> illnesses = new ArrayList<>();
+        MyPetsIndex pet = new MyPetsIndex("Buddy", 5, PetType.DOG, "Golden Retriever", parents, illnesses, "Tom Cruise", "Royal Canin");
 
-        return Stream.of(
-                Arguments.of(new MyPetsIndex("Buddy", 5, PetType.DOG, "Golden Retriever", parents, illnesses, "Tom Cruise", "Royal Canin"))
-        );
-    }
+        service.savePet(pet);
 
-
-
-
-
-    @ParameterizedTest
-    @MethodSource("provideDocParameters")
-    public void OpenSearchPetsServiceTest_SaveDoc_SavesNewDoc(MyPetsIndex index1) {
-        service.savePet(index1);
-
-        Assertions.assertTrue(repo.existsById(index1.getId()));
+        Assertions.assertTrue(repo.existsById(pet.getId()));
     }
 
     @Test
