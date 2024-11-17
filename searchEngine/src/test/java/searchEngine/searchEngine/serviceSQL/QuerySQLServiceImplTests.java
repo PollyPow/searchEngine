@@ -7,9 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
-import searchEngine.searchEngine.modelSQL.Query;
+import searchEngine.searchEngine.model.SQL.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
-import searchEngine.searchEngine.serviceSQL.implementation.QuerySQLServiceImpl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,7 +24,7 @@ public class QuerySQLServiceImplTests {
     private SQLRepo sqlRepo;
 
     @Autowired
-    private QuerySQLServiceInterface service;
+    private QuerySQLService service;
 
     private static Query query;
 
