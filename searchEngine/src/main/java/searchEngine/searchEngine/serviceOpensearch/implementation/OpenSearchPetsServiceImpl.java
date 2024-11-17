@@ -46,10 +46,12 @@ public class OpenSearchPetsServiceImpl implements OpenSearchPetsService {
 
     @Override
     public SearchResponse<MyPetsIndex> getPetsByName(String name) {
+        int resultSize = 1000;
+
         SearchRequest request = new SearchRequest.Builder()
                 .index(index)
                 .query(q -> q.match(m -> m.field("name").query(FieldValue.of(name))))
-                .size(1000)
+                .size(resultSize)
                 .build();
 
         try {
