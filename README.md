@@ -6,7 +6,7 @@
 2. [Setup Instructions](#setup-instructions)
     - [PostgreSQL](#postgresql)
     - [OpenSearch](#opensearch)
-3. [Filling in the OpenSearch index](#filling-in)
+3. [Filling in the OpenSearch index](#filling-in-the-opensearch-index)
 4. [Resources](#resources)
 
 ## Prerequisites
@@ -31,7 +31,7 @@ or
 ```bash
 docker start <container_id>
 ```
-### Opensearch
+### OpenSearch
 1. Docker Image: Use the official Opensearch and Opensearch Dashboards images from Docker Hub.
 2. Docker Compose Configuration:
 Add this to your docker-compose.yml:
