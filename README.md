@@ -23,9 +23,9 @@ Ensure you have the following installed on your system:
 
 1. Docker Image: Use the official PostgreSQL image from Docker Hub.
 2. Starting the Container: Run the following command:
-   ´´´bash
+   ```bash
    docker run postgres
-   ´´´
+   ```
    or
    ´´´bash
    docker start <container_id>
