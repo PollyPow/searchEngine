@@ -6,7 +6,8 @@
 2. [Setup Instructions](#setup-instructions)
     - [PostgreSQL](#postgresql)
     - [OpenSearch](#opensearch)
-3. [Resources](#resources)
+3. [Filling in the OpenSearch index](#filling-in)
+4. [Resources](#resources)
 
 ## Prerequisites
 
@@ -110,6 +111,8 @@ networks:
 ```bash
 docker-compose up -d opensearch-node1 opensearch-node2 opensearch-dashboards
 ```
+## Filling in the OpenSearch index
+To fill in the OpenSearch index, run OpenSearchPetsServiceImplTests.java.
 ## Resources
 - [Opensearch Docker](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/#sample-docker-compose-file-for-development)
 
