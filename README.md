@@ -23,18 +23,18 @@ Ensure you have the following installed on your system:
 
 1. Docker Image: Use the official PostgreSQL image from Docker Hub.
 2. Starting the Container: Run the following command:
-   ```bash
-   docker run postgres
-   ```
-   or
-   ´´´bash
-   docker start <container_id>
-   ´´´
+```bash
+docker run postgres
+```
+or
+```bash
+docker start <container_id>
+```
 ### Opensearch
 1. Docker Image: Use the official Opensearch and Opensearch Dashboards images from Docker Hub.
 2. Docker Compose Configuration:
 Add this to your docker-compose.yml:
-´´´yaml
+```yaml
 version: '3'
 services:
   opensearch-node1:
@@ -105,9 +105,9 @@ volumes:
 
 networks:
   opensearch-net:
-´´´
+```
 3. Starting the Container: Run the following command:
-  ´´´bash
-  docker-compose up -d opensearch-node1 opensearch-node2 opensearch-dashboards
-  ´´´
+```bash
+docker-compose up -d opensearch-node1 opensearch-node2 opensearch-dashboards
+```
 
