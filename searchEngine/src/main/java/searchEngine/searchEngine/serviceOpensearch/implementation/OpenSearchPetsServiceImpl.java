@@ -6,15 +6,15 @@ import org.opensearch.client.opensearch.core.SearchRequest;
 import org.opensearch.client.opensearch.core.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import searchEngine.searchEngine.modelOpensearch.MyPetsIndex;
+import searchEngine.searchEngine.model.Opensearch.MyPetsIndex;
+import searchEngine.searchEngine.model.Opensearch.PetType;
 import searchEngine.searchEngine.repository.PetsOpensearchRepo;
 import searchEngine.searchEngine.serviceOpensearch.OpenSearchPetsService;
 
 import java.io.IOException;
 
 @Service
-public class OpenSearchPetsServiceImpl implements OpenSearchPetsService<MyPetsIndex> {
-
+public class OpenSearchPetsServiceImpl implements OpenSearchPetsService {
 
     @Autowired
     private OpenSearchClient openSearchClient;
@@ -24,11 +24,32 @@ public class OpenSearchPetsServiceImpl implements OpenSearchPetsService<MyPetsIn
 
     private final String index = "my_pets";
 
+
+
+
+
+
+    @Override
+    public void savePet(MyPetsIndex index) {
+        repo.save(index);
+    }
+
+    @Override
+    public void deletePet(String id) {
+        repo.deleteById(id);
+    }
+
+    @Override
+    public void deleteAllPets() {
+        repo.deleteAll();
+    }
+
     @Override
     public SearchResponse<MyPetsIndex> getPetsByName(String name) {
         SearchRequest request = new SearchRequest.Builder()
                 .index(index)
                 .query(q -> q.match(m -> m.field("name").query(FieldValue.of(name))))
+                .size(1000)
                 .build();
 
         try {
@@ -40,12 +61,20 @@ public class OpenSearchPetsServiceImpl implements OpenSearchPetsService<MyPetsIn
         }
     }
 
-    private void savePet(MyPetsIndex index) {
-        repo.save(index);
+    @Override
+    public SearchResponse<MyPetsIndex> getPetsByPetType(PetType type) {
+        SearchRequest request = new SearchRequest.Builder()
+                .index(index)
+                .query(q -> q.match(m -> m.field("pet_type").query(FieldValue.of(type.toString()))))
+                .build();
+
+        try {
+            return openSearchClient.search(request, MyPetsIndex.class);
+        } catch (IOException e) {
+            e.getMessage();
+            e.getStackTrace();
+            return null;
+        }
     }
 
-    @Override
-    public void saveDoc(MyPetsIndex index) {
-        savePet(index);
-    }
 }

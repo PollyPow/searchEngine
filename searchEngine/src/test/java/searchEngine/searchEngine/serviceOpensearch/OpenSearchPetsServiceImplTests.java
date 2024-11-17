@@ -2,16 +2,22 @@ package searchEngine.searchEngine.serviceOpensearch;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.opensearch.core.IndexRequest;
 import org.opensearch.client.opensearch.core.SearchResponse;
 import org.opensearch.client.opensearch.core.search.Hit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import searchEngine.searchEngine.modelOpensearch.MyPetsIndex;
-import searchEngine.searchEngine.serviceOpensearch.implementation.OpenSearchPetsServiceImpl;
+import searchEngine.searchEngine.model.Opensearch.MyPetsIndex;
+import searchEngine.searchEngine.model.Opensearch.PetType;
+import searchEngine.searchEngine.repository.PetsOpensearchRepo;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @SpringBootTest
 public class OpenSearchPetsServiceImplTests {
@@ -20,15 +26,48 @@ public class OpenSearchPetsServiceImplTests {
     private OpenSearchClient client;
 
     @Autowired
-    private OpenSearchPetsServiceInterface service;
+    private PetsOpensearchRepo repo;
+
+    @Autowired
+    private OpenSearchPetsService service;
+
+
+
+
+    private static Stream<Arguments> provideDocParameters() {
+        ArrayList<String> parents = new ArrayList<>();
+        parents.add("Jane");
+        parents.add("John");
+
+        ArrayList<String> illnesses = new ArrayList<>();
+
+        return Stream.of(
+                Arguments.of(new MyPetsIndex("Buddy", 5, PetType.DOG, "Golden Retriever", parents, illnesses, "Tom Cruise", "Royal Canin"))
+        );
+    }
+
+
+
+
+
+    @ParameterizedTest
+    @MethodSource("provideDocParameters")
+    public void OpenSearchPetsServiceTest_SaveDoc_SavesNewDoc(MyPetsIndex index1) {
+        service.savePet(index1);
+
+        Assertions.assertTrue(repo.existsById(index1.getId()));
+    }
 
     @Test
-    public void OpenSearchService_GetPetsByName_FindAllPetsByName () {
+    public void OpenSearchPetsServiceTest_GetPetsByName_FindAllPetsByName () {
         String index = "my_pets";
-        String testName = "TestName";
-        MyPetsIndex pet = new MyPetsIndex();
-        pet.setName(testName);
-        int total = 10;
+        ArrayList<String> parents = new ArrayList<String>();
+        parents.add("Alice");
+        parents.add("Bob");
+        ArrayList<String> illnesses = new ArrayList<String>();
+        String name = "Fluffy";
+        MyPetsIndex pet = new MyPetsIndex(name, 3, PetType.CAT, "Maine Coon", parents, illnesses, "Anne Hathaway", "Whiskas");
+        int total = 20;
         for(int j = 0; j < total; ++j) {
             IndexRequest<MyPetsIndex> request = IndexRequest.of(i -> i.index(index).id(null).document(pet));
             Assertions.assertDoesNotThrow(() -> { client.index(request); });
@@ -36,7 +75,7 @@ public class OpenSearchPetsServiceImplTests {
 
 
 
-        SearchResponse<MyPetsIndex> pets = service.getPetsByName(testName);
+        SearchResponse<MyPetsIndex> pets = service.getPetsByName(name);
         List<MyPetsIndex> listOfPets = pets.hits().hits().stream().map(Hit::source).toList();
 
 
@@ -44,6 +83,16 @@ public class OpenSearchPetsServiceImplTests {
 
         Assertions.assertNotNull(pets);
         Assertions.assertEquals(total, pets.hits().hits().size(), String.format("The amount of found pets should be %d", total));
-        Assertions.assertTrue(listOfPets.stream().allMatch(p -> p.getName().equals(testName)));
+        Assertions.assertTrue(listOfPets.stream().allMatch(p -> p.getName().equals(name)));
     }
+
+    /*
+    @Test
+    public void OpenSearchPetsServiceTest_deleteAll_deleteAllPets() {
+        service.deleteAllPets();
+
+        Assertions.assertFalse(repo.findAll().iterator().hasNext());
+    }
+    */
 }
+
