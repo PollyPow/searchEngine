@@ -1,8 +1,11 @@
 package searchEngine.searchEngine.service.serviceOpensearch;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.opensearch.client.opensearch.OpenSearchClient;
+import org.opensearch.client.opensearch._types.Refresh;
 import org.opensearch.client.opensearch.core.IndexRequest;
 import org.opensearch.client.opensearch.core.SearchResponse;
 import org.opensearch.client.opensearch.core.search.Hit;
@@ -27,6 +30,14 @@ public class OpenSearchPetsServiceImplTests {
     @Autowired
     private OpenSearchPetsService service;
 
+/*
+    @AfterEach
+    public void cleanUp() {
+        repo.deleteAll();
+    }
+
+
+ */
 
 
 
@@ -54,7 +65,7 @@ public class OpenSearchPetsServiceImplTests {
         MyPetsIndex pet = new MyPetsIndex(name, 3, PetType.CAT, "Maine Coon", parents, illnesses, "Anne Hathaway", "Whiskas");
         int total = 20;
         for(int j = 0; j < total; ++j) {
-            IndexRequest<MyPetsIndex> request = IndexRequest.of(i -> i.index(index).id(null).document(pet));
+            IndexRequest<MyPetsIndex> request = IndexRequest.of(i -> i.index(index).id(null).document(pet).refresh(Refresh.True));
             Assertions.assertDoesNotThrow(() -> { client.index(request); });
         }
 
@@ -77,7 +88,7 @@ public class OpenSearchPetsServiceImplTests {
         MyPetsIndex pet = new MyPetsIndex("Goldie", 1, PetType.FISH, "Goldfish", parents, illnesses, null, "Tetra");
         int total = 20;
         for(int j = 0; j < total; ++j) {
-            IndexRequest<MyPetsIndex> request = IndexRequest.of(i -> i.index(index).id(null).document(pet));
+            IndexRequest<MyPetsIndex> request = IndexRequest.of(i -> i.index(index).id(null).document(pet).refresh(Refresh.True));
             Assertions.assertDoesNotThrow(() -> { client.index(request); });
         }
 
