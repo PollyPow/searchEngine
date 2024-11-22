@@ -7,9 +7,11 @@ import org.opensearch.client.opensearch.core.SearchRequest;
 import org.opensearch.client.opensearch.core.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import searchEngine.searchEngine.model.History.Query;
 import searchEngine.searchEngine.model.Opensearch.MyPetsIndex;
 import searchEngine.searchEngine.model.Opensearch.PetType;
 import searchEngine.searchEngine.repository.PetsOpensearchRepo;
+import searchEngine.searchEngine.service.History.HistoryService;
 import searchEngine.searchEngine.service.Opensearch.OpenSearchPetsService;
 
 import java.io.IOException;
@@ -22,6 +24,9 @@ public class OpenSearchPetsServiceImpl implements OpenSearchPetsService {
 
     @Autowired
     private PetsOpensearchRepo repo;
+
+    @Autowired
+    private HistoryService historyService;
 
     private final String index = "my_pets";
 
@@ -55,6 +60,8 @@ public class OpenSearchPetsServiceImpl implements OpenSearchPetsService {
                 .size(resultSize)
                 .build();
 
+        historyService.create(new Query(name));
+
         try {
             return openSearchClient.search(request, MyPetsIndex.class);
         } catch (IOException e) {
@@ -73,6 +80,8 @@ public class OpenSearchPetsServiceImpl implements OpenSearchPetsService {
                 .query(q -> q.match(m -> m.field("petType").query(FieldValue.of(type.toString()))))
                 .size(resultSize)
                 .build();
+
+        historyService.create(new Query(type.toString()));
 
         try {
             return openSearchClient.search(request, MyPetsIndex.class);
@@ -96,6 +105,8 @@ public class OpenSearchPetsServiceImpl implements OpenSearchPetsService {
                 .query(queryString.toQuery())
                 .size(resultSize)
                 .build();
+
+        historyService.create(new Query(name));
 
         try {
             return openSearchClient.search(request, MyPetsIndex.class);
