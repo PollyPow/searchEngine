@@ -101,14 +101,14 @@ public class OpenSearchPetsServiceImplTests {
     }
 
 
-    /*
+
     @Test
     public void OpenSearchPetsServiceTest_deleteAll_deleteAllPets() {
         service.deleteAllPets();
 
         Assertions.assertFalse(repo.findAll().iterator().hasNext());
     }
-     */
+
 
 
 }
