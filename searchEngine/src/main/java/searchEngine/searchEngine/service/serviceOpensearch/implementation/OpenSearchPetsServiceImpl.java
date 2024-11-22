@@ -2,6 +2,7 @@ package searchEngine.searchEngine.service.serviceOpensearch.implementation;
 
 import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.opensearch._types.FieldValue;
+import org.opensearch.client.opensearch._types.query_dsl.QueryStringQuery;
 import org.opensearch.client.opensearch.core.SearchRequest;
 import org.opensearch.client.opensearch.core.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,29 @@ public class OpenSearchPetsServiceImpl implements OpenSearchPetsService {
         SearchRequest request = new SearchRequest.Builder()
                 .index(index)
                 .query(q -> q.match(m -> m.field("petType").query(FieldValue.of(type.toString()))))
+                .size(resultSize)
+                .build();
+
+        try {
+            return openSearchClient.search(request, MyPetsIndex.class);
+        } catch (IOException e) {
+            e.getMessage();
+            e.getStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public SearchResponse<MyPetsIndex> getPetsByParentsName(String name) {
+        int resultSize = 1000;
+
+        QueryStringQuery queryString = new QueryStringQuery.Builder()
+                .query("parentsNames:" + name)
+                .build();
+
+        SearchRequest request = new SearchRequest.Builder()
+                .index(index)
+                .query(queryString.toQuery())
                 .size(resultSize)
                 .build();
 

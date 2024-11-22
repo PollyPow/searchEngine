@@ -110,7 +110,38 @@ public class OpenSearchPetsServiceImplTests {
         Assertions.assertFalse(repo.findAll().iterator().hasNext());
     }
 
+    @Test
+    public void OpenSearchPetsServiceTest_findPetsByParentsName() {
+        String index = "my_pets";
+        ArrayList<String> parents = new ArrayList<String>();
+        parents.add("Alice");
+        parents.add("Bob");
+        ArrayList<String> illnesses = new ArrayList<String>();
+        PetType type = PetType.HAMSTER;
+        MyPetsIndex pet1 = new MyPetsIndex("Coco", 1, PetType.HAMSTER, "European", parents, illnesses, null, "Tetra");
 
+        //indexing the 1st pet
+        IndexRequest<MyPetsIndex> request1 = IndexRequest.of(i -> i.index(index).id(pet1.getId()).document(pet1).refresh(Refresh.True));
+        Assertions.assertDoesNotThrow(() -> { client.index(request1); });
+
+        //indexing the 2nd pet
+        parents.removeFirst();
+        parents.add("Jane");
+        MyPetsIndex pet2 = new MyPetsIndex("Coco", 1, PetType.HAMSTER, "European", parents, illnesses, null, "Tetra");
+        IndexRequest<MyPetsIndex> request2 = IndexRequest.of(i -> i.index(index).id(pet2.getId()).document(pet2).refresh(Refresh.True));
+        Assertions.assertDoesNotThrow(() -> { client.index(request2); });
+
+
+
+        SearchResponse<MyPetsIndex> pets = service.getPetsByParentsName("Jane");
+        List<MyPetsIndex> listOfPets = pets.hits().hits().stream().map(Hit::source).toList();
+
+
+
+        Assertions.assertNotNull(pets);
+        Assertions.assertEquals(1, pets.hits().hits().size(), String.format("The amount of found pets should be %d", 1));
+        Assertions.assertTrue(listOfPets.stream().allMatch(p -> p.getParentsNames().contains("Jane")));
+    }
 
 }
 
