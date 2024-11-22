@@ -30,14 +30,15 @@ public class OpenSearchPetsServiceImplTests {
     @Autowired
     private OpenSearchPetsService service;
 
-/*
+
+
+
     @AfterEach
     public void cleanUp() {
         repo.deleteAll();
     }
 
 
- */
 
 
 
