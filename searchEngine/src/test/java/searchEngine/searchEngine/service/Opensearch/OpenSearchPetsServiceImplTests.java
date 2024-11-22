@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.opensearch._types.Refresh;
 import org.opensearch.client.opensearch.core.IndexRequest;
+import org.opensearch.client.opensearch.core.IndexResponse;
 import org.opensearch.client.opensearch.core.SearchResponse;
 import org.opensearch.client.opensearch.core.search.Hit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,6 +141,25 @@ public class OpenSearchPetsServiceImplTests {
         Assertions.assertNotNull(pets);
         Assertions.assertEquals(1, pets.hits().hits().size(), String.format("The amount of found pets should be %d", 1));
         Assertions.assertTrue(listOfPets.stream().allMatch(p -> p.getParentsNames().contains("Jane")));
+    }
+
+    @Test
+    public void OpenSearchPetsServiceTest_DeletePet_DeletePetWithGivenId() {
+        String index = "my_pets";
+        ArrayList<String> parents = new ArrayList<String>();
+        parents.add("Alice");
+        parents.add("Bob");
+        ArrayList<String> illnesses = new ArrayList<String>();
+        PetType type = PetType.GUINEA_PIG;
+        MyPetsIndex pet = new MyPetsIndex("Shorty", 1, PetType.GUINEA_PIG, "European", parents, illnesses, null, "Tetra");
+
+        service.savePet(pet);
+        //asserting that pet is added
+        Assertions.assertTrue(repo.existsById(pet.getId()));
+
+        service.deletePet(pet.getId());
+
+        Assertions.assertFalse(repo.existsById(pet.getId()));
     }
 
 }
