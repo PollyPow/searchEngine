@@ -1,7 +1,6 @@
-package searchEngine.searchEngine.service.serviceOpensearch;
+package searchEngine.searchEngine.service.Opensearch;
 
 import org.opensearch.client.opensearch.core.SearchResponse;
-import org.springframework.data.elasticsearch.annotations.Query;
 import searchEngine.searchEngine.model.Opensearch.MyPetsIndex;
 import searchEngine.searchEngine.model.Opensearch.PetType;
 

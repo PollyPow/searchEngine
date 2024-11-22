@@ -1,4 +1,4 @@
-package searchEngine.searchEngine.service.serviceOpensearch.implementation;
+package searchEngine.searchEngine.service.Opensearch.implementation;
 
 import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.opensearch._types.FieldValue;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import searchEngine.searchEngine.model.Opensearch.MyPetsIndex;
 import searchEngine.searchEngine.model.Opensearch.PetType;
 import searchEngine.searchEngine.repository.PetsOpensearchRepo;
-import searchEngine.searchEngine.service.serviceOpensearch.OpenSearchPetsService;
+import searchEngine.searchEngine.service.Opensearch.OpenSearchPetsService;
 
 import java.io.IOException;
 
