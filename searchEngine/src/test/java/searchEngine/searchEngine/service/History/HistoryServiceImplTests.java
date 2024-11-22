@@ -1,4 +1,4 @@
-package searchEngine.searchEngine.service.serviceHistory;
+package searchEngine.searchEngine.service.History;
 
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
-import searchEngine.searchEngine.model.SQL.Query;
+import searchEngine.searchEngine.model.History.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
 
 import java.time.LocalDate;
@@ -19,12 +19,12 @@ import java.util.List;
 @SpringBootTest
 @Transactional
 @Commit
-public class ServiceHistoryImplTests {
+public class HistoryServiceImplTests {
     @Autowired
     private SQLRepo sqlRepo;
 
     @Autowired
-    private ServiceHistory service;
+    private HistoryService service;
 
     private static Query query;
 
@@ -43,7 +43,7 @@ public class ServiceHistoryImplTests {
 
 
     @Test
-    public void ServiceHistory_Create_SaveNewQueryToDB() {
+    public void HistoryService_Create_SaveNewQueryToDB() {
         Query query = new Query("dog", "pet type");
 
         service.create(query);
@@ -53,7 +53,7 @@ public class ServiceHistoryImplTests {
     }
 
     @Test
-    public void ServiceHistory_Delete_DeleteQueryFromDB() {
+    public void HistoryService_Delete_DeleteQueryFromDB() {
         Query query = new Query("dog", "pet type");
         sqlRepo.saveAndFlush(query);
 
@@ -64,7 +64,7 @@ public class ServiceHistoryImplTests {
     }
 
     @Test
-    public void ServiceHistory_GetAllQueries_FindAllQueries() {
+    public void HistoryService_GetAllQueries_FindAllQueries() {
         List<Query> queries;
         int total = 10;
         for(int i = 0; i < total; ++i) {
@@ -78,7 +78,7 @@ public class ServiceHistoryImplTests {
     }
 
     @Test
-    public void ServiceHistory_GetAllQueries_EarlierMadeQueryAppearsFirst() {
+    public void HistoryService_GetAllQueries_EarlierMadeQueryAppearsFirst() {
         int total = 2;
         sqlRepo.saveAndFlush(new Query("mouse", LocalDateTime.now()));
         sqlRepo.saveAndFlush(new Query("cat", LocalDateTime.now().minusDays(1)));
@@ -91,7 +91,7 @@ public class ServiceHistoryImplTests {
     }
 
     @Test
-    public void ServiceHistory_GetQueriesByText_FindAllQueriesWithGivenText() {
+    public void HistoryService_GetQueriesByText_FindAllQueriesWithGivenText() {
         String text = "cat";
         int total = 10;
         for(int i = 0; i < total; ++i) {
@@ -106,7 +106,7 @@ public class ServiceHistoryImplTests {
     }
 
     @Test
-    public void ServiceHistory_GetQueriesDistinctByText_ReturnOneQueryWithGivenText() {
+    public void HistoryService_GetQueriesDistinctByText_ReturnOneQueryWithGivenText() {
         String text = "hamster";
         int total = 10;
         int expectedSize = 1;
@@ -130,7 +130,7 @@ public class ServiceHistoryImplTests {
     }
 
     @Test
-    public void ServiceHistory_GetQueriesDistinctByText_ReturnUniqueQueries() {
+    public void HistoryService_GetQueriesDistinctByText_ReturnUniqueQueries() {
         String text1 = "pig";
         String text2 = "tiger";
         int totalText1 = 15;
@@ -166,7 +166,7 @@ public class ServiceHistoryImplTests {
     }
 
     @Test
-    public void ServiceHistory_GetQueriesByDate_FindAllQueriesMadeOnGivenDate() {
+    public void HistoryService_GetQueriesByDate_FindAllQueriesMadeOnGivenDate() {
         LocalDateTime dateAndTime = LocalDateTime.of(LocalDate.of(2024, 10,17), LocalTime.of(1, 15));
         sqlRepo.saveAndFlush(new Query("sheep", dateAndTime));
         int expected = 1;
@@ -179,7 +179,7 @@ public class ServiceHistoryImplTests {
     }
 
     @Test
-    public void ServiceHistory_GetQueriesBySortField_FindAllQueriesWithGivenSortField() {
+    public void HistoryService_GetQueriesBySortField_FindAllQueriesWithGivenSortField() {
         String text = "3";
         String sortField = "age";
         int total = 10;
@@ -195,7 +195,7 @@ public class ServiceHistoryImplTests {
     }
 
     @Test
-    public void ServiceHistory_GetAllQueriesFromToday_FindAllQueriesMadeToday() {
+    public void HistoryService_GetAllQueriesFromToday_FindAllQueriesMadeToday() {
         LocalDate today = LocalDate.now();
         String text = "fish";
         int total = 10;
@@ -211,7 +211,7 @@ public class ServiceHistoryImplTests {
     }
 
     @Test
-    public void ServiceHistory_GetAllQueriesFromLastWeek_FindAllQueriesMadeLastWeek() {
+    public void HistoryService_GetAllQueriesFromLastWeek_FindAllQueriesMadeLastWeek() {
         LocalDateTime dateAndTime = LocalDateTime.now().minusWeeks(1);
         sqlRepo.saveAndFlush(new Query("cow", dateAndTime));
         sqlRepo.saveAndFlush(new Query("cow", LocalDateTime.now()));

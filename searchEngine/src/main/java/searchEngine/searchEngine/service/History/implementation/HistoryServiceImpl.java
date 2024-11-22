@@ -1,16 +1,16 @@
-package searchEngine.searchEngine.service.serviceHistory.implementation;
+package searchEngine.searchEngine.service.History.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import searchEngine.searchEngine.model.SQL.Query;
+import searchEngine.searchEngine.model.History.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
-import searchEngine.searchEngine.service.serviceHistory.ServiceHistory;
+import searchEngine.searchEngine.service.History.HistoryService;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class ServiceHistoryImpl implements ServiceHistory {
+public class HistoryServiceImpl implements HistoryService {
     @Autowired
     private SQLRepo sqlRepo;
 

@@ -1,4 +1,4 @@
-package searchEngine.searchEngine.model.SQL;
+package searchEngine.searchEngine.model.History;
 
 import jakarta.persistence.*;
 import javax.validation.constraints.NotNull;
