@@ -24,7 +24,7 @@ public class HistoryServiceImplTests {
     private SQLRepo sqlRepo;
 
     @Autowired
-    private HistoryService service;
+    private searchEngine.searchEngine.service.History.HistoryService service;
 
     private static Query query;
 

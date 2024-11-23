@@ -6,13 +6,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="searchEngine" />
+        <module name="backend" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="frontend" target="21" />
+      <module name="searchEngine (1) (searchEngine)" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="searchEngine" options="-parameters" />
+      <module name="backend" options="" />
+      <module name="searchEngine" options="" />
+      <module name="searchEngine (1) (searchEngine)" options="-parameters" />
     </option>
   </component>
 </project>

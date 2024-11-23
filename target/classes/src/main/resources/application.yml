@@ -4,7 +4,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/search_engine_polina
     username: postgres
     password: ${SQL_PASSWORD}
-    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
