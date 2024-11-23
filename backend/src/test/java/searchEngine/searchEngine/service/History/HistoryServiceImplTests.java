@@ -1,12 +1,10 @@
 package searchEngine.searchEngine.service.History;
 
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import searchEngine.searchEngine.model.History.Query;
 import searchEngine.searchEngine.repository.SQLRepo;
 
@@ -18,55 +16,38 @@ import java.util.List;
 
 @SpringBootTest
 @Transactional
-@Commit
 public class HistoryServiceImplTests {
     @Autowired
     private SQLRepo sqlRepo;
-
     @Autowired
     private searchEngine.searchEngine.service.History.HistoryService service;
-
-    private static Query query;
-
-
-
-
-
-    @AfterEach
-    public void cleanUp() {
-        sqlRepo.deleteAll();
-    }
-
-
-
-
-
+    private final int total = 10;
 
     @Test
+    @Transactional
     public void HistoryService_Create_SaveNewQueryToDB() {
         Query query = new Query("dog", "pet type");
 
         service.create(query);
 
-        Long id = query.getId();
-        Assertions.assertTrue(sqlRepo.existsById(id));
+        Assertions.assertTrue(sqlRepo.existsById(query.getId()));
     }
 
     @Test
+    @Transactional
     public void HistoryService_Delete_DeleteQueryFromDB() {
         Query query = new Query("dog", "pet type");
         sqlRepo.saveAndFlush(query);
 
         service.delete(query);
 
-        Long id = query.getId();
-        Assertions.assertFalse(sqlRepo.existsById(id));
+        Assertions.assertFalse(sqlRepo.existsById(query.getId()));
     }
 
     @Test
+    @Transactional
     public void HistoryService_GetAllQueries_FindAllQueries() {
         List<Query> queries;
-        int total = 10;
         for(int i = 0; i < total; ++i) {
             sqlRepo.saveAndFlush(new Query("horse"));
         }
@@ -78,22 +59,22 @@ public class HistoryServiceImplTests {
     }
 
     @Test
+    @Transactional
     public void HistoryService_GetAllQueries_EarlierMadeQueryAppearsFirst() {
-        int total = 2;
         sqlRepo.saveAndFlush(new Query("mouse", LocalDateTime.now()));
         sqlRepo.saveAndFlush(new Query("cat", LocalDateTime.now().minusDays(1)));
 
         List<Query> queries = service.getAllQueries();
 
         Assertions.assertNotNull(queries);
-        Assertions.assertEquals(total, queries.size(), String.format("Size of queries must be %d", total));
+        Assertions.assertEquals(2, queries.size(), String.format("Size of queries must be %d", 2));
         Assertions.assertEquals("cat", queries.getFirst().getText());
     }
 
     @Test
+    @Transactional
     public void HistoryService_GetQueriesByText_FindAllQueriesWithGivenText() {
         String text = "cat";
-        int total = 10;
         for(int i = 0; i < total; ++i) {
             sqlRepo.saveAndFlush(new Query(text));
         }
@@ -106,66 +87,54 @@ public class HistoryServiceImplTests {
     }
 
     @Test
+    @Transactional
     public void HistoryService_GetQueriesDistinctByText_ReturnOneQueryWithGivenText() {
         String text = "hamster";
-        int total = 10;
         int expectedSize = 1;
         for(int i = 0; i < total; ++i) {
             sqlRepo.saveAndFlush(new Query(text));
         }
 
-
-
         List<Query> queries = service.getQueriesDistinctByText();
 
-
-
         Assertions.assertNotNull(queries);
-
         //filtering queries by given text to check its size
-        List<Query> filtered_list = queries.stream().filter(q -> q.getText().equals(text)).toList();
-        int actualSize = filtered_list.size();
-
+        List<Query> filteredList = queries.stream().filter(q -> q.getText().equals(text)).toList();
+        int actualSize = filteredList.size();
         Assertions.assertEquals(expectedSize, actualSize, String.format("Size of list must be %d", expectedSize));
     }
 
     @Test
+    @Transactional
     public void HistoryService_GetQueriesDistinctByText_ReturnUniqueQueries() {
         String text1 = "pig";
         String text2 = "tiger";
-        int totalText1 = 15;
-        int totalText2 = 5;
-        for(int i = 0; i < totalText1; ++i) {
+        for(int i = 0; i < total/2; ++i) {
             sqlRepo.saveAndFlush(new Query(text1));
         }
-        for(int i = 0; i < totalText2; ++i) {
+        for(int i = total/2; i < total; ++i) {
             sqlRepo.saveAndFlush(new Query(text2));
         }
 
-
-
         List<Query> queries = service.getQueriesDistinctByText();
 
-
-
         Assertions.assertNotNull(queries);
-
         //adding text to another list and making it distinct
         //to check if its size matches size of queries
-        List<String> text_list = new ArrayList<String>();
+        List<String> textList = new ArrayList<>();
         for(Query q : queries) {
-            text_list.add(q.getText());
+            textList.add(q.getText());
         }
-        List<String> distinct_text_list = text_list.stream().distinct().toList();
-        int expected_size = distinct_text_list.size();
-        int actual_size = queries.size();
-
-        Assertions.assertEquals(expected_size, actual_size, String.format("Size of list must be %d", expected_size));
+        List<String> distinctTextList = textList.stream().distinct().toList();
+        int expectedSize = distinctTextList.size();
+        int actualSize = queries.size();
+        Assertions.assertEquals(expectedSize, actualSize, String.format("Size of list must be %d", expectedSize));
         Assertions.assertTrue(queries.stream().anyMatch(q -> q.getText().equals(text1)));
         Assertions.assertTrue(queries.stream().anyMatch(q -> q.getText().equals(text2)));
     }
 
     @Test
+    @Transactional
     public void HistoryService_GetQueriesByDate_FindAllQueriesMadeOnGivenDate() {
         LocalDateTime dateAndTime = LocalDateTime.of(LocalDate.of(2024, 10,17), LocalTime.of(1, 15));
         sqlRepo.saveAndFlush(new Query("sheep", dateAndTime));
@@ -179,6 +148,7 @@ public class HistoryServiceImplTests {
     }
 
     @Test
+    @Transactional
     public void HistoryService_GetQueriesBySortField_FindAllQueriesWithGivenSortField() {
         String text = "3";
         String sortField = "age";
@@ -195,6 +165,7 @@ public class HistoryServiceImplTests {
     }
 
     @Test
+    @Transactional
     public void HistoryService_GetAllQueriesFromToday_FindAllQueriesMadeToday() {
         LocalDate today = LocalDate.now();
         String text = "fish";
@@ -211,6 +182,7 @@ public class HistoryServiceImplTests {
     }
 
     @Test
+    @Transactional
     public void HistoryService_GetAllQueriesFromLastWeek_FindAllQueriesMadeLastWeek() {
         LocalDateTime dateAndTime = LocalDateTime.now().minusWeeks(1);
         sqlRepo.saveAndFlush(new Query("cow", dateAndTime));
