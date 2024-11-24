@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/query")
-public class QueryController {
+public class HistoryController {
     @Autowired
     private HistoryServiceImpl service;
 
