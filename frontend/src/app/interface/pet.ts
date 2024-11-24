@@ -1,4 +1,4 @@
-import { PetType } from "../enum/petType.enum.ts";
+import { PetType } from "../enum/petType.enum";
 
 export interface Pet {
     id: string;

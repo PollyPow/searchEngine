@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Pet } from "../interface/pet.ts";
+import { Pet } from "../interface/pet";
 
 @Injectable({ providedIn: 'root' })
 export class PetService {
@@ -10,8 +10,7 @@ export class PetService {
   constructor(private httpClient : HttpClient) {}
 
   getPets(searchValue?: string): Observable<Pet[]> {
-    const param = searchValue ? { param : { searchValue } } : {};
-
-    return this.httpClient.get<Pet[]>(this.apiUrl, param);
+    const encodedSearchValue = encodeURIComponent(searchValue || 'DOG');
+    return this.httpClient.get<Pet[]>(`${this.apiUrl}?type=${encodedSearchValue}`);
     }
   }
