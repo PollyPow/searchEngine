@@ -1,0 +1,44 @@
+{ "index": { "_index": "my_pets"} }
+{ "name": "Buddy", "age": 5, "pet_type": "Dog", "breed": "Golden Retriever", "parents_names": ["Jane", "John"], "previous_owners_name": "Tom Cruise", "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Fluffy", "age": 3, "pet_type": "Cat", "breed": "Maine Coon", "parents_names": ["Alice", "Bob"], "previous_owners_name": "Anne Hathaway", "food_brand": "Whiskas" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Coco", "age": 2, "pet_type": "Dog", "breed": "Beagle", "parents_names": ["Sarah", "Chris"], "illnesses": "Allergic to pollen", "previous_owners_name": "Daniel Radcliffe", "food_brand": "Dog's Love" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Spirit", "age": 2, "pet_type": "Horse", "breed": "Mustang", "parents_names": ["Loren", "Dargon"], "illnesses": "Influenza", "previous_owners_name": "Brad Pitt", "food_brand": "Josera" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Mimi", "age": 1, "pet_type": "Guinea Pig", "breed": "English Crested", "parents_names": ["Lily", "Bob"], "illnesses": "Diarrhea", "previous_owners_name": "Angelina Jolie", "food_brand": "MultiFIt" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Snow White", "age": 0, "pet_type": "Rabbit", "breed": "Netherland Dwarf", "parents_names": ["Qween", "John"], "food_brand": "VitaKraft" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Goldie", "age": 1, "pet_type": "Fish", "breed": "Goldfish", "food_brand": "Tetra" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Max", "age": 3, "pet_type": "Dog", "breed": "Labrador Retriever", "parents_names": ["Tom", "Lucy"], "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Bella", "age": 2, "pet_type": "Dog", "breed": "German Shepherd", "parents_names": ["Mark", "Amy"], "illnesses": "Hip dysplasia", "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Lucy", "age": 6, "pet_type": "Dog", "breed": "Golden Retriever", "parents_names": ["John", "Daisy"], "illnesses": ["Arthritis", "Breathing problems"], "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Rocky", "age": 4, "pet_type": "Dog", "breed": "Bulldog", "parents_names": ["Alex", "Sandra"], "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Lola", "age": 1, "pet_type": "Dog", "breed": "German Shepherd", "parents_names": ["Paul", "Sarah"], "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Jack", "age": 6, "pet_type": "Dog", "breed": "Poodle", "parents_names": ["Chris", "Kate"], "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Duke", "age": 2, "pet_type": "Dog", "breed": "Bulldog", "parents_names": ["Josh", "Megan"], "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Oscar", "age": 1, "pet_type": "Dog", "breed": "Poodle", "parents_names": ["Nick", "Emily"], "illnesses": "Skin condition", "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Charlie", "age": 4, "pet_type": "Dog", "breed": "Poodle", "parents_names": ["Chris", "Katie"], "previous_owners_name": "Chris White", "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Daisy", "age": 3, "pet_type": "Dog", "breed": "Labrador Retriever", "parents_names": ["Tom", "Linda"], "previous_owners_name": "Anya Taylor Joy", "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Milo", "age": 2, "pet_type": "Dog", "breed": "Beagle", "parents_names": ["George", "Helen"], "previous_owners_name": "Richard Hammond", "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Zoe", "age": 5, "pet_type": "Dog", "breed": "Golden Retriever", "parents_names": ["Jack", "Emma"], "previous_owners_name": "James May", "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Sophie", "age": 3, "pet_type": "Dog", "breed": "Beagle", "parents_names": ["Mike", "Anna"], "previous_owners_name": "Jeremy Clarkson", "illnesses": "Allergic to pollen", "food_brand": "Royal Canin" }
+{ "index": { "_index": "my_pets"} }
+{ "name": "Rex", "age": 4, "pet_type": "Dog", "breed": "Labrador Retriever", "parents_names": ["Sam", "Laura"], "previous_owners_name": "Luke Skywalker", "food_brand": "Royal Canin" }
+
+
