@@ -105,12 +105,11 @@ public class OpenSearchPetsServiceImplTests {
             Assertions.assertDoesNotThrow(() -> { client.index(request); });
         }
 
-        SearchResponse<MyPetsIndex> pets = service.getPetsByPetType(type);
-        List<MyPetsIndex> listOfPets = pets.hits().hits().stream().map(Hit::source).toList();
+        List<MyPetsIndex> pets = service.getPetsByPetType(type);
 
         Assertions.assertNotNull(pets);
-        Assertions.assertEquals(total, pets.hits().hits().size(), String.format("The amount of found pets should be %d", total));
-        Assertions.assertTrue(listOfPets.stream().allMatch(p -> p.getPetType().equals(type)));
+        Assertions.assertEquals(total, pets.size(), String.format("The amount of found pets should be %d", total));
+        Assertions.assertTrue(pets.stream().allMatch(p -> p.getPetType().equals(type)));
     }
 
 

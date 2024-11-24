@@ -5,6 +5,7 @@ import org.opensearch.client.opensearch._types.FieldValue;
 import org.opensearch.client.opensearch._types.query_dsl.QueryStringQuery;
 import org.opensearch.client.opensearch.core.SearchRequest;
 import org.opensearch.client.opensearch.core.SearchResponse;
+import org.opensearch.client.opensearch.core.search.Hit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import searchEngine.searchEngine.model.History.Query;
@@ -15,6 +16,7 @@ import searchEngine.searchEngine.service.History.HistoryService;
 import searchEngine.searchEngine.service.Opensearch.OpenSearchPetsService;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class OpenSearchPetsServiceImpl implements OpenSearchPetsService {
@@ -72,7 +74,7 @@ public class OpenSearchPetsServiceImpl implements OpenSearchPetsService {
     }
 
     @Override
-    public SearchResponse<MyPetsIndex> getPetsByPetType(PetType type) {
+    public List<MyPetsIndex> getPetsByPetType(PetType type) {
         int resultSize = 1000;
 
         SearchRequest request = new SearchRequest.Builder()
@@ -84,7 +86,9 @@ public class OpenSearchPetsServiceImpl implements OpenSearchPetsService {
         historyService.create(new Query(type.toString()));
 
         try {
-            return openSearchClient.search(request, MyPetsIndex.class);
+            SearchResponse<MyPetsIndex> response = openSearchClient.search(request, MyPetsIndex.class);
+
+            return response.hits().hits().stream().map(Hit::source).toList();
         } catch (IOException e) {
             e.getMessage();
             e.getStackTrace();
