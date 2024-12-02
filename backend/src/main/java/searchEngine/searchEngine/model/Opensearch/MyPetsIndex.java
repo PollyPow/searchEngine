@@ -16,25 +16,25 @@ public class MyPetsIndex{
     @Field(type = FieldType.Text, name = "name")
     private String name;
 
-    @Field(type = FieldType.Integer, name = "age")
+    @Field(type = FieldType.Integer, name = "ageYears")
     private int ageYears;
 
-    @Field(type = FieldType.Keyword, name = "pet_type")
+    @Field(type = FieldType.Keyword, name = "petType")
     private PetType petType;
 
     @Field(type = FieldType.Text, name = "breed")
     private String breed;
 
-    @Field(type = FieldType.Text, name = "parents_names")
+    @Field(type = FieldType.Text, name = "parentsNames")
     private List<String> parentsNames;
 
     @Field(type = FieldType.Text, name = "illnesses")
     private List<String> illnesses;
 
-    @Field(type = FieldType.Text, name = "previous_owners_name")
+    @Field(type = FieldType.Text, name = "previousOwnersName")
     private String previousOwnersName;
 
-    @Field(type = FieldType.Text, name = "food_brand")
+    @Field(type = FieldType.Text, name = "foodBrand")
     private String foodBrand;
 
     public MyPetsIndex() {

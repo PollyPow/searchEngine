@@ -1,8 +1,12 @@
 package searchEngine.searchEngine.service.Opensearch.implementation;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.opensearch.client.RequestOptions;
 import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.opensearch._types.FieldValue;
 import org.opensearch.client.opensearch._types.query_dsl.QueryStringQuery;
+import org.opensearch.client.opensearch.core.IndexRequest;
 import org.opensearch.client.opensearch.core.SearchRequest;
 import org.opensearch.client.opensearch.core.SearchResponse;
 import org.opensearch.client.opensearch.core.search.Hit;
@@ -118,6 +122,16 @@ public class OpenSearchPetsServiceImpl implements OpenSearchPetsService {
             e.getMessage();
             e.getStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public void indexBulkData(List<MyPetsIndex> pets) throws IOException {
+        for(MyPetsIndex pet : pets) {
+            IndexRequest<MyPetsIndex> request = IndexRequest.of(i -> i.index("my_pets")
+                                                                        .id(null)
+                                                                        .document(pet));
+            openSearchClient.index(request);
         }
     }
 
