@@ -5,22 +5,24 @@
       id="searchValue"
       type="text"
       formControlName="searchValue"
-      placeholder="Enter pet type"
+      placeholder="Enter query"
     />
     <button type="submit">Search</button>
   </form>
 
   <div class="results-container" *ngIf="pets.length > 0; else noResults">
     <h3>Search Results:</h3>
+    <span>Results in total: {{pets.length}}</span>
     <ul>
-      <li *ngFor="let pet of pets">
+      <li *ngFor="let pet of pets | slice:0:10">
         <strong>{{ pet.name }}</strong> - {{ pet.petType }}
-        <span *ngIf="pet.ageYears">({{ pet.ageYears }} years old)</span>
+        <span *ngIf="pet.ageYears">({{ pet.ageYears }} years old) </span>
+        <span *ngIf="pet.breed">{{ pet.breed }} </span>
       </li>
     </ul>
   </div>
 
   <ng-template #noResults>
-    <p>No pets found. Try searching for a different name or type.</p>
+    <p>No pets found.</p>
   </ng-template>
 </div>

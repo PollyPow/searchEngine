@@ -10,7 +10,7 @@ export class PetService {
   constructor(private httpClient : HttpClient) {}
 
   getPets(searchValue?: string): Observable<Pet[]> {
-    const encodedSearchValue = encodeURIComponent(searchValue || '');
+    const encodedSearchValue = encodeURIComponent(searchValue || 'default');
     return this.httpClient.get<Pet[]>(`${this.apiUrl}?input=${encodedSearchValue}`);
     }
   }

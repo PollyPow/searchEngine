@@ -29,7 +29,7 @@ export class AppComponent implements OnInit{
     }
 
   fetchData(): void {
-    const searchValue = this.searchForm.get('searchValue')?.value || '';
+    const searchValue = this.searchForm.get('searchValue')?.value || 'default';
     this.petService.getPets(searchValue).subscribe((pets) => { this.pets = pets; },
     (error) => {
           console.error('Error fetching pets:', error);
