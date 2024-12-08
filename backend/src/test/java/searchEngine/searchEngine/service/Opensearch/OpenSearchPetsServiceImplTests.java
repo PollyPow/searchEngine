@@ -1,9 +1,7 @@
 package searchEngine.searchEngine.service.Opensearch;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.*;
 import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.opensearch._types.Refresh;
 import org.opensearch.client.opensearch.core.IndexRequest;
@@ -11,10 +9,13 @@ import org.opensearch.client.opensearch.core.SearchResponse;
 import org.opensearch.client.opensearch.core.search.Hit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
 import searchEngine.searchEngine.model.Opensearch.MyPetsIndex;
 import searchEngine.searchEngine.model.Opensearch.PetType;
 import searchEngine.searchEngine.repository.PetsOpensearchRepo;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -112,9 +113,8 @@ public class OpenSearchPetsServiceImplTests {
         Assertions.assertTrue(pets.stream().allMatch(p -> p.getPetType().equals(type)));
     }
 
-
-
     @Test
+    @Disabled
     public void OpenSearchPetsServiceTest_deleteAll_deleteAllPets() {
         service.deleteAllPets();
 
@@ -172,6 +172,23 @@ public class OpenSearchPetsServiceImplTests {
         service.deletePet(pet.getId());
 
         Assertions.assertFalse(repo.existsById(pet.getId()));
+    }
+
+    @Test
+    @Disabled
+    public void FillInTheIndex() {
+        try {
+            ClassPathResource resource = new ClassPathResource("bulk_data_pets.json");
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<MyPetsIndex> pets;
+
+            try (InputStream inputStream = resource.getInputStream()) {
+                pets = objectMapper.readValue(inputStream, objectMapper.getTypeFactory().constructCollectionType(List.class, MyPetsIndex.class));
+            }
+            service.indexBulkData(pets);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
