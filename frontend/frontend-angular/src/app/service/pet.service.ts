@@ -11,6 +11,6 @@ export class PetService {
 
   getPets(searchValue?: string): Observable<Pet[]> {
     const encodedSearchValue = encodeURIComponent(searchValue || '');
-    return this.httpClient.get<Pet[]>(`${this.apiUrl}?type=${encodedSearchValue}`);
+    return this.httpClient.get<Pet[]>(`${this.apiUrl}?input=${encodedSearchValue}`);
     }
   }

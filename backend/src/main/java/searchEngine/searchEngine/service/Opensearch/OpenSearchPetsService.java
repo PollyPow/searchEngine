@@ -1,6 +1,5 @@
 package searchEngine.searchEngine.service.Opensearch;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.opensearch.client.opensearch.core.SearchResponse;
 import searchEngine.searchEngine.model.Opensearch.MyPetsIndex;
 import searchEngine.searchEngine.model.Opensearch.PetType;
@@ -16,4 +15,5 @@ public interface OpenSearchPetsService{
     List<MyPetsIndex> getPetsByPetType(PetType type);
     SearchResponse<MyPetsIndex> getPetsByParentsName(String name);
     void indexBulkData(List<MyPetsIndex> pets) throws IOException;
+    List<MyPetsIndex> getPetsFromQueryStringQuery(String query);
 }
