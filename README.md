@@ -28,16 +28,11 @@ docker-compose up -d
 in the "searchEngine/backend" directory.
 
 ### Backend
-Start Spring Boot Application.
+Start Backend Application.
 
 ### Frontend
-Run
-```bash
-npm i
-ng serve
-```
-in the "searchEngine/frontend" directory.
+Start Frontend Application.
 
 ## Filling in the OpenSearch my_pets index
-It will be filled in automatically after starting the aplication.
+Run FillInTheIndex() Test in backend/src/test/java/searchEngine.searchEngine/service/Opensearch/OpenSearchPetsServiceImplTests.
 
