@@ -1,10 +1,10 @@
-package searchEngine.searchEngine;
+package spring_boot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SearchEngineApplicationTests {
+class FrontendTests {
 
 	@Test
 	void contextLoads() {
