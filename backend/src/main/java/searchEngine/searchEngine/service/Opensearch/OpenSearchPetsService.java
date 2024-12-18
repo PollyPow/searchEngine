@@ -15,5 +15,5 @@ public interface OpenSearchPetsService{
     List<MyPetsIndex> getPetsByPetType(PetType type);
     SearchResponse<MyPetsIndex> getPetsByParentsName(String name);
     void indexBulkData(List<MyPetsIndex> pets) throws IOException;
-    List<MyPetsIndex> getPetsFromQueryStringQuery(String query);
+    List<MyPetsIndex> getPetsFromBoolQuery(String query);
 }

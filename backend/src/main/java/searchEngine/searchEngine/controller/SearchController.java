@@ -19,6 +19,6 @@ public class SearchController {
 
     @GetMapping("/list")
     public List<MyPetsIndex> getPets(@RequestParam String input) {
-        return service.getPetsFromQueryStringQuery(input);
+        return service.getPetsFromBoolQuery(input);
     }
 }

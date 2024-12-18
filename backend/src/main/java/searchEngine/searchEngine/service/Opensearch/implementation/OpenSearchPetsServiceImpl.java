@@ -7,10 +7,7 @@ import org.opensearch.client.json.JsonData;
 import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.opensearch._types.FieldValue;
 import org.opensearch.client.opensearch._types.aggregations.RangeAggregate;
-import org.opensearch.client.opensearch._types.query_dsl.QueryStringQuery;
-import org.opensearch.client.opensearch._types.query_dsl.BoolQuery;
-import org.opensearch.client.opensearch._types.query_dsl.RangeQuery;
-import org.opensearch.client.opensearch._types.query_dsl.RangeQueryBase;
+import org.opensearch.client.opensearch._types.query_dsl.*;
 import org.opensearch.client.opensearch.core.IndexRequest;
 import org.opensearch.client.opensearch.core.SearchRequest;
 import org.opensearch.client.opensearch.core.SearchResponse;
@@ -141,16 +138,43 @@ public class OpenSearchPetsServiceImpl implements OpenSearchPetsService {
     }
 
     @Override
-    public List<MyPetsIndex> getPetsFromQueryStringQuery(String input) {
+    public List<MyPetsIndex> getPetsFromBoolQuery(String input) {
         int resultSize = 1000;
+        String queryStringQueryInput = "";
+        String[] rangeQueryInput = new String[] {"age", "0", "100"};
 
-        QueryStringQuery queryString = new QueryStringQuery.Builder()
-                .query("*:" + input)
+        String[] inputParts = input.split(" ");
+        for(String part : inputParts) {
+            if(part.startsWith("age")) {
+                rangeQueryInput = part.split(":");
+            }
+            else {
+                queryStringQueryInput += part;
+            }
+        }
+
+        if(queryStringQueryInput.isEmpty()) {
+            queryStringQueryInput = "*";
+        }
+
+        QueryStringQuery queryStringQuery = new QueryStringQuery.Builder()
+                .query("*:" + queryStringQueryInput)
+                .build();
+
+        RangeQuery rangeQuery = new RangeQuery.Builder()
+                    .field("ageYears")
+                    .gte(JsonData.of(rangeQueryInput[1]))
+                    .lte(JsonData.of(rangeQueryInput[2]))
+                    .build();
+
+        BoolQuery boolQuery = new BoolQuery.Builder()
+                .must(queryStringQuery.toQuery())
+                .filter(rangeQuery.toQuery())
                 .build();
 
         SearchRequest request = new SearchRequest.Builder()
                 .index(index)
-                .query(queryString.toQuery())
+                .query(boolQuery.toQuery())
                 .size(resultSize)
                 .build();
 
