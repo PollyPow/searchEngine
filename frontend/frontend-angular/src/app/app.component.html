@@ -1,4 +1,8 @@
 <div class="search-container">
+  <div class="exampleFormat">
+    <p>Acceptable format for range queries: "age:x:y"</p>
+  </div>
+
   <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
     <label for="searchValue">Search for Pets:</label>
     <input
